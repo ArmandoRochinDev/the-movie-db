@@ -2,7 +2,7 @@ package com.armandorochin.themoviedb.data.local
 
 import androidx.room.TypeConverter
 
-class ListIntConverter {
+class TmdbConverter {
 
     @TypeConverter
     fun fromListIntToString(intList: List<Int>): String = intList.toString()

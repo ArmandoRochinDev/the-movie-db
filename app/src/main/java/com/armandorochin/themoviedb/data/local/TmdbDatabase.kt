@@ -4,7 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
-@TypeConverters(ListIntConverter::class)
+@TypeConverters(TmdbConverter::class)
 @Database(entities = [MovieLocal::class], version = 1)
 abstract class TmdbDatabase : RoomDatabase() {
     abstract fun moviesDao(): MoviesDao

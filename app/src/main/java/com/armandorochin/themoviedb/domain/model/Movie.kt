@@ -1,4 +1,4 @@
-package com.armandorochin.themoviedb.domain
+package com.armandorochin.themoviedb.domain.model
 
 import com.armandorochin.themoviedb.data.local.MovieLocal
 

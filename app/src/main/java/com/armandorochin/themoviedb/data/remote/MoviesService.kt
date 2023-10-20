@@ -3,6 +3,7 @@ package com.armandorochin.themoviedb.data.remote
 import retrofit2.http.GET
 
 interface MoviesService {
+    //TODO save apikey
     @GET("discover/movie?api_key=d30e1f350220f9aad6c4110df385d380")
     suspend fun getMovies():MoviesResponse
 }

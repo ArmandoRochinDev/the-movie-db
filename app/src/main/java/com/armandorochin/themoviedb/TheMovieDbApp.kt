@@ -1,7 +1,7 @@
-package com.armandorochin.themoviedb.ui
+package com.armandorochin.themoviedb
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class TmdbApp : Application()
+class TheMovieDbApp:Application()

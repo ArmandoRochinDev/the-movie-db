@@ -2,7 +2,7 @@ package com.armandorochin.themoviedb.data.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.armandorochin.themoviedb.domain.Movie
+import com.armandorochin.themoviedb.domain.model.Movie
 
 @Entity
 data class MovieLocal(
