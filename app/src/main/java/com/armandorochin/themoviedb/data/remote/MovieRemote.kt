@@ -1,6 +1,6 @@
-package com.armandorochin.themoviedb
+package com.armandorochin.themoviedb.data.remote
 
-data class Movie(
+data class MovieRemote(
     val adult: Boolean,
     val backdrop_path: String,
     val genre_ids: List<Int>,
