@@ -12,6 +12,7 @@ class MoviesRepository @Inject constructor(
     suspend fun requestMovies() : List<Movie>{
         //TODO handle retrofit exceptions
         val isDbEmpty = localDataSource.count() == 0
+
         if(isDbEmpty){
             localDataSource.insertAll(remoteDataSource.getMovies().movies)
         }

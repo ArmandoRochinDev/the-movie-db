@@ -6,13 +6,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.armandorochin.themoviedb.domain.model.Movie
 import com.armandorochin.themoviedb.domain.GetMovies
+import com.armandorochin.themoviedb.domain.UpdateMovie
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getMovies: GetMovies
+    private val getMovies: GetMovies,
+    private val updateMovie: UpdateMovie
 ): ViewModel()  {
 
     private val _moviesList = MutableLiveData<List<Movie>>()
@@ -26,6 +28,13 @@ class HomeViewModel @Inject constructor(
             }catch (e: Exception){
                 e.printStackTrace()
             }
+        }
+    }
+
+    fun changeFavStatus(movie: Movie){
+        viewModelScope.launch {
+            updateMovie(movie.copy(favorite = !movie.favorite))
+            getAllMovies()
         }
     }
 }

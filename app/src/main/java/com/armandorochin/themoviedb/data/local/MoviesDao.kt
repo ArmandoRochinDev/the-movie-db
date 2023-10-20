@@ -8,7 +8,7 @@ import androidx.room.Update
 @Dao
 interface MoviesDao{
     @Query("SELECT * FROM MovieLocal")
-    suspend fun getAll(): List<MovieLocal>
+    suspend fun getAll(): List<MovieLocal> //TODO retornar live data desde aca
 
     @Insert
     suspend fun insert(movie: MovieLocal)
