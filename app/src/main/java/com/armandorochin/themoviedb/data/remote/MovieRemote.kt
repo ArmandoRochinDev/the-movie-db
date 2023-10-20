@@ -1,18 +1,44 @@
 package com.armandorochin.themoviedb.data.remote
 
+import com.armandorochin.themoviedb.data.local.MovieLocal
+import com.google.gson.annotations.SerializedName
+
 data class MovieRemote(
     val adult: Boolean,
-    val backdrop_path: String,
-    val genre_ids: List<Int>,
-    val id: Int,
-    val original_language: String,
-    val original_title: String,
+    @SerializedName("backdrop_path")
+    val backdropPath: String,
+    @SerializedName("genre_ids")
+    val genreIds: List<Int>,
+    @SerializedName("id")
+    val movieId: Int,
+    @SerializedName("original_language")
+    val originalLanguage: String,
+    @SerializedName("original_title")
+    val originalTitle: String,
     val overview: String,
     val popularity: Double,
-    val poster_path: String,
-    val release_date: String,
+    @SerializedName("poster_path")
+    val posterPath: String,
+    @SerializedName("release_date")
+    val releaseDate: String,
     val title: String,
     val video: Boolean,
-    val vote_average: Double,
-    val vote_count: Int
+    @SerializedName("vote_average")
+    val voteAverage: Double,
+    @SerializedName("vote_count")
+    val voteCount: Int
 )
+
+fun MovieRemote.toMovieLocal() = MovieLocal(
+    movieId = movieId,
+    genreIds = genreIds,
+    originalLanguage = originalLanguage,
+    originalTitle = originalTitle,
+    overview = overview,
+    posterPath = posterPath,
+    releaseDate = releaseDate,
+    title = title,
+    voteAverage = voteAverage
+)
+
+
