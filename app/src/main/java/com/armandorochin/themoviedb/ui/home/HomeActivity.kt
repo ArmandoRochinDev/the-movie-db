@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.armandorochin.themoviedb.databinding.ActivityHomeBinding
 import com.armandorochin.themoviedb.domain.model.Movie
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.log
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity(){
@@ -22,23 +23,23 @@ class HomeActivity : AppCompatActivity(){
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        homeViewModel.getAllMovies()
-
-        homeViewModel.moviesList?.observe(this, Observer { movies ->
-            //TODO setup ui with movie list
+        homeViewModel.moviesLivedata().observe(this){ movies ->
+            //setupRecycler(movies)
             movies.forEach {
-                Log.d("HomeActivity", it.favorite.toString())
-                binding.rvMovies.layoutManager = GridLayoutManager(this,2)
-                binding.rvMovies.adapter = MoviesAdapter(movies) { movie ->
-                    onMovieClicked(movie)
-                }
+                Log.d("dev", it.title)
             }
-        })
-
+        }
 
     }
 
-    fun onMovieClicked(movie: Movie){
+    private fun setupRecycler(movies: List<Movie>) {
+        binding.rvMovies.layoutManager = GridLayoutManager(this, 2)
+        binding.rvMovies.adapter = MoviesAdapter(movies){
+            onMovieClicked(it)
+        }
+    }
+
+    private fun onMovieClicked(movie: Movie){
         homeViewModel.changeFavStatus(movie)
     }
 }

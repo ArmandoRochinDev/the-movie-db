@@ -1,14 +1,14 @@
 package com.armandorochin.themoviedb.domain
 
+import androidx.lifecycle.LiveData
 import com.armandorochin.themoviedb.data.MoviesRepository
 import com.armandorochin.themoviedb.domain.model.Movie
 import javax.inject.Inject
 
-class GetMovies @Inject constructor(
+class RequestMovies @Inject constructor(
     private val repository: MoviesRepository
 ) {
-
-    suspend operator fun invoke(): List<Movie> {
-        return repository.requestMovies()
+    operator fun invoke(): LiveData<List<Movie>> {
+        return repository.getMoviesFromRepository()
     }
 }

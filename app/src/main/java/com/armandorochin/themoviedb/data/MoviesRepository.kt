@@ -1,5 +1,7 @@
 package com.armandorochin.themoviedb.data
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.liveData
 import com.armandorochin.themoviedb.data.local.LocalDataSource
 import com.armandorochin.themoviedb.data.remote.RemoteDataSource
 import com.armandorochin.themoviedb.domain.model.Movie
@@ -9,8 +11,11 @@ class MoviesRepository @Inject constructor(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource
 ) {
-    suspend fun requestMovies() : List<Movie>{
-        //TODO handle retrofit exceptions
+    fun getMoviesFromRepository(): LiveData<List<Movie>> = liveData{
+        emitSource(getMovies())
+    }
+
+    private suspend fun getMovies(): LiveData<List<Movie>>{
         val isDbEmpty = localDataSource.count() == 0
 
         if(isDbEmpty){
