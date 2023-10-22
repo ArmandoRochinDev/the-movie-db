@@ -1,8 +1,9 @@
 package com.armandorochin.themoviedb.data.local
 
 import androidx.room.TypeConverter
+import java.util.Date
 
-class TmdbConverter {
+class Converters {
 
     @TypeConverter
     fun fromListIntToString(intList: List<Int>): String = intList.toString()
@@ -19,4 +20,15 @@ class TmdbConverter {
         }
         return result
     }
+
+    @TypeConverter
+    fun fromTimestamp(value: Long): Date {
+        return Date(value)
+    }
+
+    @TypeConverter
+    fun dateToTimestamp(date: Date): Long {
+        return date.time
+    }
+
 }

@@ -31,4 +31,8 @@ class LocalDataSource @Inject constructor(
     suspend fun deleteAll(){
         dao.deleteAll()
     }
+
+    suspend fun getLastUpdatedMovie(): Movie {
+        return dao.getLastCreatedMovie().toMovie()
+    }
 }

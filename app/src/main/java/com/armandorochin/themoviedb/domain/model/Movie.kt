@@ -1,6 +1,7 @@
 package com.armandorochin.themoviedb.domain.model
 
 import com.armandorochin.themoviedb.data.local.MovieLocal
+import java.util.Date
 
 data class Movie(
     val movieId: Int,
@@ -12,7 +13,8 @@ data class Movie(
     val releaseDate: String,
     val title: String,
     val voteAverage: Double,
-    val favorite: Boolean
+    val favorite: Boolean,
+    val createdAt: Date
 )
 
 fun Movie.toMovieLocal() = MovieLocal(
@@ -25,5 +27,6 @@ fun Movie.toMovieLocal() = MovieLocal(
     releaseDate = releaseDate,
     title = title,
     voteAverage = voteAverage,
-    favorite = favorite
+    favorite = favorite,
+    createdAt = createdAt
 )

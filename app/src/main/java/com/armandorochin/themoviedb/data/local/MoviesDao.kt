@@ -24,4 +24,7 @@ interface MoviesDao{
 
     @Query("DELETE FROM MovieLocal")
     suspend fun deleteAll()
+
+    @Query("SELECT * FROM MovieLocal LIMIT 1")
+    suspend fun getLastCreatedMovie() : MovieLocal
 }

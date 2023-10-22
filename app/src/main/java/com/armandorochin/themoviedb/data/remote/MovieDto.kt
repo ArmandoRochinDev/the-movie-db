@@ -2,6 +2,7 @@ package com.armandorochin.themoviedb.data.remote
 
 import com.armandorochin.themoviedb.data.local.MovieLocal
 import com.google.gson.annotations.SerializedName
+import java.util.Date
 
 data class MovieDto(
     val adult: Boolean,
@@ -38,7 +39,8 @@ fun MovieDto.toMovieLocal() = MovieLocal(
     posterPath = posterPath,
     releaseDate = releaseDate,
     title = title,
-    voteAverage = voteAverage
+    voteAverage = voteAverage,
+    createdAt = Date()
 )
 
 

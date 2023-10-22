@@ -3,6 +3,7 @@ package com.armandorochin.themoviedb.data.local
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.armandorochin.themoviedb.domain.model.Movie
+import java.util.Date
 
 @Entity
 data class MovieLocal(
@@ -15,7 +16,8 @@ data class MovieLocal(
     val releaseDate: String,
     val title: String,
     val voteAverage: Double,
-    val favorite: Boolean = false
+    val favorite: Boolean = false,
+    val createdAt: Date
 )
 
 fun MovieLocal.toMovie() = Movie(
@@ -28,5 +30,6 @@ fun MovieLocal.toMovie() = Movie(
     releaseDate = releaseDate,
     title = title,
     voteAverage = voteAverage,
-    favorite = favorite
+    favorite = favorite,
+    createdAt = createdAt
 )

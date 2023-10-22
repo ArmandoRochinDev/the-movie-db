@@ -5,6 +5,8 @@ import androidx.lifecycle.liveData
 import com.armandorochin.themoviedb.data.local.LocalDataSource
 import com.armandorochin.themoviedb.data.remote.RemoteDataSource
 import com.armandorochin.themoviedb.domain.model.Movie
+import java.util.Date
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class MoviesRepository @Inject constructor(
@@ -19,18 +21,31 @@ class MoviesRepository @Inject constructor(
         val isDbEmpty = localDataSource.count() == 0
 
         if(isDbEmpty){
-            try {
-                val responseRemote = remoteDataSource.getMovies()
+            saveMoviesFromServer()
+        }else{
+            val lastUpdateMovie = localDataSource.getLastUpdatedMovie()
 
-                if(responseRemote.isSuccessful){
-                    if(responseRemote.body() != null) localDataSource.insertAll(responseRemote.body()!!.movies)
-                }
-            }catch (e: Exception){
-                e.printStackTrace()
+            val diffInHours: Long = TimeUnit.MILLISECONDS.toHours(Date().time - lastUpdateMovie.createdAt.time)
+
+            if(diffInHours > 0){
+                localDataSource.deleteAll()
+                saveMoviesFromServer()
             }
         }
 
         return localDataSource.getMoviesFromDb()
+    }
+
+    private suspend fun saveMoviesFromServer(){
+        try {
+            val responseRemote = remoteDataSource.getMovies()
+
+            if(responseRemote.isSuccessful){
+                if(responseRemote.body() != null) localDataSource.insertAll(responseRemote.body()!!.movies)
+            }
+        }catch (e: Exception){
+            e.printStackTrace()
+        }
     }
 
     suspend fun updateMovie(movie: Movie){
