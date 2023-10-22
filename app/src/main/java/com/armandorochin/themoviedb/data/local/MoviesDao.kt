@@ -9,7 +9,7 @@ import androidx.room.Update
 @Dao
 interface MoviesDao{
     @Query("SELECT * FROM MovieLocal")
-    fun getAll(): LiveData<List<MovieLocal>> //TODO retornar live data desde aca
+    fun getAll(): LiveData<List<MovieLocal>>
 
     @Insert
     suspend fun insert(movie: MovieLocal)

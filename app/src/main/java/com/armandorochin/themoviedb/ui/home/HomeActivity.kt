@@ -23,11 +23,10 @@ class HomeActivity : AppCompatActivity(){
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setupRecycler(emptyList())
+
         homeViewModel.moviesLivedata().observe(this){ movies ->
-            //setupRecycler(movies)
-            movies.forEach {
-                Log.d("dev", it.title)
-            }
+            (binding.rvMovies.adapter as MoviesAdapter).updateList(movies)
         }
 
     }
