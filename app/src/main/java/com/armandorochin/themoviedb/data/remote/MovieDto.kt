@@ -3,7 +3,7 @@ package com.armandorochin.themoviedb.data.remote
 import com.armandorochin.themoviedb.data.local.MovieLocal
 import com.google.gson.annotations.SerializedName
 
-data class MovieRemote(
+data class MovieDto(
     val adult: Boolean,
     @SerializedName("backdrop_path")
     val backdropPath: String,
@@ -29,7 +29,7 @@ data class MovieRemote(
     val voteCount: Int
 )
 
-fun MovieRemote.toMovieLocal() = MovieLocal(
+fun MovieDto.toMovieLocal() = MovieLocal(
     movieId = movieId,
     genreIds = genreIds,
     originalLanguage = originalLanguage,

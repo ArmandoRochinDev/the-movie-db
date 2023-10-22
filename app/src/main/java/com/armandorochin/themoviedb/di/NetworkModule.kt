@@ -5,6 +5,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Interceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -13,11 +14,13 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
+    private const val BASEURL = "https://api.themoviedb.org/3/"
+    const val TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiNGZkMGEyOWFhMjY4MzA2OGY2OWRmZjZhZTliZDY1OSIsInN1YiI6IjY1MWM1MzI2OGMyMmMwMDEzZDEyMzllZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.UNXuhznLuFXech3ddULSQbH9E-g45zkXQ7ceCvlrp2Y"
     @Provides
     @Singleton
     fun provideRetrofit() : Retrofit{
         return Retrofit.Builder()
-            .baseUrl("https://api.themoviedb.org/3/")
+            .baseUrl(BASEURL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

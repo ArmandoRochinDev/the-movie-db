@@ -1,9 +1,12 @@
 package com.armandorochin.themoviedb.data.remote
 
+import com.armandorochin.themoviedb.di.NetworkModule
+import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Headers
 
 interface MoviesService {
-    //TODO save apikey
-    @GET("discover/movie?api_key=d30e1f350220f9aad6c4110df385d380")
-    suspend fun getMovies():MoviesResponse
+    @GET("discover/movie?language=es-MX")
+    @Headers("Authorization: Bearer ${NetworkModule.TOKEN}")
+    suspend fun getMovies():Response<MoviesBodyDto>
 }

@@ -12,14 +12,22 @@ class MoviesRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource
 ) {
     fun getMoviesFromRepository(): LiveData<List<Movie>> = liveData{
-        emitSource(getMovies())
+        emitSource(handleRequestMovies())
     }
 
-    private suspend fun getMovies(): LiveData<List<Movie>>{
+    private suspend fun handleRequestMovies(): LiveData<List<Movie>>{
         val isDbEmpty = localDataSource.count() == 0
 
         if(isDbEmpty){
-            localDataSource.insertAll(remoteDataSource.getMovies().movies)
+            try {
+                val responseRemote = remoteDataSource.getMovies()
+
+                if(responseRemote.isSuccessful){
+                    if(responseRemote.body() != null) localDataSource.insertAll(responseRemote.body()!!.movies)
+                }
+            }catch (e: Exception){
+                e.printStackTrace()
+            }
         }
 
         return localDataSource.getMoviesFromDb()

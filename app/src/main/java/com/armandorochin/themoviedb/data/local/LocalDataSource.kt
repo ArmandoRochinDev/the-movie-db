@@ -2,7 +2,7 @@ package com.armandorochin.themoviedb.data.local
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
-import com.armandorochin.themoviedb.data.remote.MovieRemote
+import com.armandorochin.themoviedb.data.remote.MovieDto
 import com.armandorochin.themoviedb.data.remote.toMovieLocal
 import com.armandorochin.themoviedb.domain.model.Movie
 import com.armandorochin.themoviedb.domain.model.toMovieLocal
@@ -20,7 +20,7 @@ class LocalDataSource @Inject constructor(
         dao.update(movie.toMovieLocal())
     }
 
-    suspend fun insertAll(movies: List<MovieRemote>){
+    suspend fun insertAll(movies: List<MovieDto>){
         dao.insertAll(movies.map { it.toMovieLocal() })
     }
 
