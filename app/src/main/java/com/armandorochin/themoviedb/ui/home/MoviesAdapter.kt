@@ -36,7 +36,6 @@ class MoviesViewHolder (view: View) : RecyclerView.ViewHolder(view) {
 
     private val binding = ItemMovieBinding.bind(view)
     fun render(movie: Movie, onClickListener: (Movie) -> Unit){
-        binding.tvMovieTitle.text = movie.title
         Glide.with(binding.ivMoviePoster.context).load("https://image.tmdb.org/t/p/w185/${movie.posterPath}").into(binding.ivMoviePoster)
         itemView.setOnClickListener { onClickListener(movie) }
         if (movie.favorite) binding.ivFav.visibility = RecyclerView.VISIBLE else binding.ivFav.visibility =

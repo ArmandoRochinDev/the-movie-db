@@ -1,16 +1,12 @@
 package com.armandorochin.themoviedb.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.armandorochin.themoviedb.databinding.ActivityHomeBinding
 import com.armandorochin.themoviedb.domain.model.Movie
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.math.log
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity(){
@@ -23,18 +19,19 @@ class HomeActivity : AppCompatActivity(){
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.toolbarLayout.toolbar)
+
         setupRecycler(emptyList())
-
-        homeViewModel.moviesLivedata().observe(this){ movies ->
-            (binding.rvMovies.adapter as MoviesAdapter).updateList(movies)
-        }
-
     }
 
     private fun setupRecycler(movies: List<Movie>) {
         binding.rvMovies.layoutManager = GridLayoutManager(this, 2)
         binding.rvMovies.adapter = MoviesAdapter(movies){
             onMovieClicked(it)
+        }
+
+        homeViewModel.moviesLivedata().observe(this){ movies ->
+            (binding.rvMovies.adapter as MoviesAdapter).updateList(movies)
         }
     }
 
