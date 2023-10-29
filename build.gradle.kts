@@ -6,3 +6,9 @@ plugins {
 
     kotlin("kapt") version "1.9.10"
 }
+
+buildscript {
+    dependencies {
+        classpath("com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:2.0.1")
+    }
+}

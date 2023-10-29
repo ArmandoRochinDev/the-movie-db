@@ -1,5 +1,6 @@
 package com.armandorochin.themoviedb.di
 
+import com.armandorochin.themoviedb.BuildConfig
 import com.armandorochin.themoviedb.data.remote.MoviesService
 import dagger.Module
 import dagger.Provides
@@ -15,7 +16,6 @@ import javax.inject.Singleton
 object NetworkModule {
 
     private const val BASEURL = "https://api.themoviedb.org/3/"
-    const val TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiNGZkMGEyOWFhMjY4MzA2OGY2OWRmZjZhZTliZDY1OSIsInN1YiI6IjY1MWM1MzI2OGMyMmMwMDEzZDEyMzllZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.UNXuhznLuFXech3ddULSQbH9E-g45zkXQ7ceCvlrp2Y"
     @Provides
     @Singleton
     fun provideRetrofit() : Retrofit{
