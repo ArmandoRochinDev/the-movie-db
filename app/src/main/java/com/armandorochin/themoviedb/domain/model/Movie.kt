@@ -1,32 +1,37 @@
 package com.armandorochin.themoviedb.domain.model
 
-import com.armandorochin.themoviedb.data.local.MovieLocal
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 import java.util.Date
 
+@Entity
 data class Movie(
-    val movieId: Int,
+//    @PrimaryKey(autoGenerate = true)
+//    val uid: Int,
+    val adult: Boolean,
+    @SerializedName("backdrop_path")
+    val backdropPath: String?,
+    @SerializedName("genre_ids")
     val genreIds: List<Int>,
+    @SerializedName("id")
+    @PrimaryKey val movieId: Int,
+    @SerializedName("original_language")
     val originalLanguage: String,
+    @SerializedName("original_title")
     val originalTitle: String,
     val overview: String,
+    val popularity: Double,
+    @SerializedName("poster_path")
     val posterPath: String,
+    @SerializedName("release_date")
     val releaseDate: String,
     val title: String,
+    val video: Boolean,
+    @SerializedName("vote_average")
     val voteAverage: Double,
-    val favorite: Boolean,
-    val createdAt: Date
-)
-
-fun Movie.toMovieLocal() = MovieLocal(
-    movieId = movieId,
-    genreIds = genreIds,
-    originalLanguage = originalLanguage,
-    originalTitle = originalTitle,
-    overview = overview,
-    posterPath = posterPath,
-    releaseDate = releaseDate,
-    title = title,
-    voteAverage = voteAverage,
-    favorite = favorite,
-    createdAt = createdAt
+    @SerializedName("vote_count")
+    val voteCount: Int,
+    var page: Int,
+    var createdAt: Date
 )

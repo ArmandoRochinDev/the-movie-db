@@ -3,10 +3,11 @@ package com.armandorochin.themoviedb.ui.home
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.armandorochin.themoviedb.databinding.ActivityHomeBinding
-import com.armandorochin.themoviedb.domain.model.Movie
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity(){
@@ -14,6 +15,7 @@ class HomeActivity : AppCompatActivity(){
     private lateinit var binding: ActivityHomeBinding
 
     private val homeViewModel: HomeViewModel by viewModels()
+    private var adapter: DiscoveryAdapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -21,21 +23,22 @@ class HomeActivity : AppCompatActivity(){
 
         setSupportActionBar(binding.toolbarLayout.toolbar)
 
-        setupRecycler(emptyList())
+        setupRecycler()
     }
 
-    private fun setupRecycler(movies: List<Movie>) {
+    private fun setupRecycler() {
+        adapter = DiscoveryAdapter()
         binding.rvMovies.layoutManager = GridLayoutManager(this, 2)
-        binding.rvMovies.adapter = MoviesAdapter(movies){
-            onMovieClicked(it)
-        }
-
-        homeViewModel.moviesLivedata().observe(this){ movies ->
-            (binding.rvMovies.adapter as MoviesAdapter).updateList(movies)
+        binding.rvMovies.adapter = adapter
+        homeViewModel.getDiscoveryLiveData().observe(this){ movies ->
+            lifecycleScope.launch {
+                adapter?.submitData(movies)
+            }
         }
     }
 
-    private fun onMovieClicked(movie: Movie){
-        homeViewModel.changeFavStatus(movie)
+    override fun onDestroy() {
+        super.onDestroy()
+        adapter = null
     }
 }

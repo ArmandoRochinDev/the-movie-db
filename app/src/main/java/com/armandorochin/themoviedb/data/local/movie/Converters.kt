@@ -1,4 +1,4 @@
-package com.armandorochin.themoviedb.data.local
+package com.armandorochin.themoviedb.data.local.movie
 
 import androidx.room.TypeConverter
 import java.util.Date
@@ -30,5 +30,4 @@ class Converters {
     fun dateToTimestamp(date: Date): Long {
         return date.time
     }
-
 }

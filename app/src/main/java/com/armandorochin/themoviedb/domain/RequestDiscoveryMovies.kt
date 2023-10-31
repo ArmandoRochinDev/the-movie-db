@@ -1,13 +1,15 @@
 package com.armandorochin.themoviedb.domain
 
+import androidx.lifecycle.LiveData
+import androidx.paging.PagingData
 import com.armandorochin.themoviedb.data.MoviesRepository
 import com.armandorochin.themoviedb.domain.model.Movie
 import javax.inject.Inject
 
-class UpdateMovie @Inject constructor(
+class RequestDiscoveryMovies @Inject constructor(
     private val repository: MoviesRepository
 ) {
-    suspend operator fun invoke(movie: Movie) {
-        repository.updateMovie(movie)
+    operator fun invoke(): LiveData<PagingData<Movie>> {
+        return repository.getDiscoveryMovies()
     }
 }

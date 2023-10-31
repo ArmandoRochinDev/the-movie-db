@@ -1,12 +1,10 @@
 package com.armandorochin.themoviedb.di
 
-import com.armandorochin.themoviedb.BuildConfig
-import com.armandorochin.themoviedb.data.remote.MoviesService
+import com.armandorochin.themoviedb.data.remote.DiscoveryService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.Interceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -16,6 +14,7 @@ import javax.inject.Singleton
 object NetworkModule {
 
     private const val BASEURL = "https://api.themoviedb.org/3/"
+    const val IMAGEURL = "https://image.tmdb.org/t/p/w185/"
     @Provides
     @Singleton
     fun provideRetrofit() : Retrofit{
@@ -27,7 +26,7 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideMoviesService(retrofit: Retrofit): MoviesService{
-        return retrofit.create(MoviesService::class.java)
+    fun provideMoviesService(retrofit: Retrofit): DiscoveryService{
+        return retrofit.create(DiscoveryService::class.java)
     }
 }
