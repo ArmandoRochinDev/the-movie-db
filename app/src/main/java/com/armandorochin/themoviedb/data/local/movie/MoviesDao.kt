@@ -4,22 +4,24 @@ import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.armandorochin.themoviedb.domain.model.Movie
 
 @Dao
 interface MoviesDao{
     @Insert
-    suspend fun insertAll(movies: List<Movie>)
+    suspend fun insertAll(movies: List<MovieLocal>)
 
-    @Query("SELECT COUNT(*) FROM Movie")
+    @Query("SELECT COUNT(*) FROM MovieLocal")
     suspend fun count():Int
 
-    @Query("SELECT * FROM Movie ORDER BY createdAt DESC LIMIT 1")
-    suspend fun getLastCreatedMovie() : Movie
-    @Query("SELECT * FROM Movie ORDER BY createdAt ASC LIMIT 1")
-    suspend fun getFirstCreatedMovie() : Movie
+    @Query("DELETE FROM MovieLocal")
+    suspend fun deleteAllDiscoveryMovies()
+
+    @Query("SELECT * FROM MovieLocal ORDER BY createdAt DESC LIMIT 1")
+    suspend fun getLastCreatedMovie() : MovieLocal
+    @Query("SELECT * FROM MovieLocal ORDER BY createdAt ASC LIMIT 1")
+    suspend fun getFirstCreatedMovie() : MovieLocal
 
     //Paging
-    @Query("SELECT * FROM Movie ORDER BY popularity DESC")
-    fun getDiscoveryMovies(): PagingSource<Int, Movie>
+    @Query("SELECT * FROM MovieLocal ORDER BY popularity DESC")
+    fun getDiscoveryMovies(): PagingSource<Int, MovieLocal>
 }

@@ -1,9 +1,13 @@
-package com.armandorochin.themoviedb.domain.model
+package com.armandorochin.themoviedb.data.local.movie
 
-import com.armandorochin.themoviedb.data.local.movie.MovieLocal
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.armandorochin.themoviedb.domain.model.Movie
 import java.util.Date
 
-data class Movie(
+@Entity
+data class MovieLocal(
+    @PrimaryKey(autoGenerate = true)
     val uid: Int?,
     val adult: Boolean,
     val backdropPath: String?,
@@ -23,7 +27,7 @@ data class Movie(
     var createdAt: Date
 )
 
-fun Movie.toMovieLocal() = MovieLocal(
+fun MovieLocal.toMovie() = Movie(
     uid,
     adult,
     backdropPath,
