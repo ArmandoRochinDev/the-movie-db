@@ -7,9 +7,9 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
 import com.armandorochin.themoviedb.data.local.LocalDataSource
+import com.armandorochin.themoviedb.data.local.movie.MovieLocal
 import com.armandorochin.themoviedb.data.remote.DiscoveryMediator
 import com.armandorochin.themoviedb.data.remote.RemoteDataSource
-import com.armandorochin.themoviedb.domain.model.Movie
 import javax.inject.Inject
 
 class MoviesRepository @Inject constructor(
@@ -17,7 +17,7 @@ class MoviesRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource
 ) {
 
-    fun getDiscoveryMovies(): LiveData<PagingData<Movie>>{
+    fun getDiscoveryMovies(): LiveData<PagingData<MovieLocal>>{
         val pagingSourceFactory = { localDataSource.getDiscoveryMovies() }
         @OptIn(ExperimentalPagingApi::class)
         return Pager(

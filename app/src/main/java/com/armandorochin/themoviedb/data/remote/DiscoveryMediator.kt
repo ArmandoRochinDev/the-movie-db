@@ -6,10 +6,9 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.armandorochin.themoviedb.data.local.LocalDataSource
-import com.armandorochin.themoviedb.domain.model.Movie
+import com.armandorochin.themoviedb.data.local.movie.MovieLocal
 import retrofit2.HttpException
 import java.io.IOException
-import java.util.Date
 
 private const val TMDB_STARTING_PAGE_INDEX = 1
 private const val PAGE_LIMIT = 40764
@@ -18,7 +17,7 @@ private const val PAGE_LIMIT = 40764
 class DiscoveryMediator(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource
-) : RemoteMediator<Int, Movie>() {
+) : RemoteMediator<Int, MovieLocal>() {
 
     override suspend fun initialize(): InitializeAction {
         // Launch remote refresh as soon as paging starts and do not trigger remote prepend or
@@ -29,7 +28,7 @@ class DiscoveryMediator(
     }
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, Movie>
+        state: PagingState<Int, MovieLocal>
     ): MediatorResult {
         val pageIndex = when (loadType) {
             LoadType.REFRESH -> {
@@ -56,31 +55,16 @@ class DiscoveryMediator(
         }
         try {
             val apiResponse = remoteDataSource.getDiscoveryMovies(pageIndex)
-            val movies: List<Movie> = apiResponse.movies.map {
-                Movie(
-                    movieId = it.movieId,
-                    page = apiResponse.page, //save index page of the item
-                    posterPath = it.posterPath,
-                    adult = it.adult,
-                    backdropPath = it.backdropPath,
-                    genreIds = it.genreIds,
-                    originalLanguage = it.originalLanguage,
-                    originalTitle = it.originalTitle,
-                    title = it.title,
-                    overview = it.overview,
-                    popularity = it.popularity,
-                    releaseDate = it.releaseDate,
-                    video = it.video,
-                    voteAverage = it.voteAverage,
-                    voteCount =it.voteCount,
-                    createdAt = Date()//current date
-                )
-            }
+            val movies: List<MovieDto> = apiResponse.movies
 
             val endOfPaginationReached = (apiResponse.page == PAGE_LIMIT)
 
             localDataSource.getDatabase().withTransaction {
-                localDataSource.insertAll(movies)
+                if(loadType == LoadType.REFRESH && apiResponse.page == 1){
+                    localDataSource.deleteAllDiscoveryMovies()
+                }
+
+                localDataSource.insertAll(movies.map { it.toMovieLocal(apiResponse.page) })
             }
 
             return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
