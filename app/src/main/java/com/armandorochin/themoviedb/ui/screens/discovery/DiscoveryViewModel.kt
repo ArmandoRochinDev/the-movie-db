@@ -1,4 +1,4 @@
-package com.armandorochin.themoviedb.ui.home
+package com.armandorochin.themoviedb.ui.screens.discovery
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -11,11 +11,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
+class DiscoveryViewModel @Inject constructor(
     requestDiscoveryMovies: RequestDiscoveryMovies
 ): ViewModel()  {
-    private val discoveryMovies = requestDiscoveryMovies()
+    private val discoveryMovies = requestDiscoveryMovies().cachedIn(viewModelScope)
     fun getDiscoveryLiveData(): LiveData<PagingData<Movie>> {
-        return discoveryMovies.cachedIn(viewModelScope)
+        return discoveryMovies
     }
 }

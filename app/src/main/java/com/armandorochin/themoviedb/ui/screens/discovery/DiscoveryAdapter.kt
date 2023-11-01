@@ -1,4 +1,4 @@
-package com.armandorochin.themoviedb.ui.home
+package com.armandorochin.themoviedb.ui.screens.discovery
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

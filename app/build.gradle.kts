@@ -62,6 +62,8 @@ dependencies {
 
     //Activity
     implementation("androidx.activity:activity-ktx:1.8.0")
+    //Fragment
+    implementation("androidx.fragment:fragment-ktx:1.6.1")
     //ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
     //Livedata
@@ -83,7 +85,8 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
     //paging
     implementation( "androidx.paging:paging-runtime-ktx:3.2.1")
-
+    //splashscreen
+    implementation( "androidx.core:core-splashscreen:1.0.1")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
