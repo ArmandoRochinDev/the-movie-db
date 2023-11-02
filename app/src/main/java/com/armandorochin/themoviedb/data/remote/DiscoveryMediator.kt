@@ -1,5 +1,6 @@
 package com.armandorochin.themoviedb.data.remote
 
+import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -59,8 +60,9 @@ class DiscoveryMediator(
 
             val endOfPaginationReached = (apiResponse.page == PAGE_LIMIT)
 
+            Log.d("DiscoveryMediator", "loadType: ${loadType.name} \n page: ${apiResponse.page}")
             localDataSource.getDatabase().withTransaction {
-                if(loadType == LoadType.REFRESH && apiResponse.page == 1){
+                if(LoadType.valueOf(loadType.name) == LoadType.REFRESH && apiResponse.page == 1){
                     localDataSource.deleteAllDiscoveryMovies()
                 }
 
