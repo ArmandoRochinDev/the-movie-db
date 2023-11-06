@@ -1,11 +1,9 @@
 package com.armandorochin.themoviedb.data.remote
 
-import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import androidx.room.withTransaction
 import com.armandorochin.themoviedb.data.local.LocalDataSource
 import com.armandorochin.themoviedb.data.local.movie.MovieLocal
 import retrofit2.HttpException
@@ -60,12 +58,9 @@ class DiscoveryMediator(
 
             val endOfPaginationReached = (apiResponse.page == PAGE_LIMIT)
 
-            Log.d("DiscoveryMediator", "loadType: ${loadType.name} \n page: ${apiResponse.page}")
-            localDataSource.getDatabase().withTransaction {
-                if(LoadType.valueOf(loadType.name) == LoadType.REFRESH && apiResponse.page == 1){
-                    localDataSource.deleteAllDiscoveryMovies()
-                }
-
+            if(LoadType.valueOf(loadType.name) == LoadType.REFRESH && apiResponse.page == 1){
+                localDataSource.insertAndDeleteTransaction(movies.map{it.toMovieLocal(apiResponse.page)})
+            }else{
                 localDataSource.insertAll(movies.map { it.toMovieLocal(apiResponse.page) })
             }
 

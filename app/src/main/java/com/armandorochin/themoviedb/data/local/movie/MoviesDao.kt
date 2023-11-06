@@ -4,6 +4,7 @@ import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Transaction
 
 @Dao
 interface MoviesDao{
@@ -24,4 +25,10 @@ interface MoviesDao{
     //Paging
     @Query("SELECT * FROM MovieLocal ORDER BY popularity DESC")
     fun getDiscoveryMovies(): PagingSource<Int, MovieLocal>
+
+    @Transaction
+    suspend fun deleteAllAndInsertTransaction(movies: List<MovieLocal>){
+        deleteAllDiscoveryMovies()
+        insertAll(movies)
+    }
 }

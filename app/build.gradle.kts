@@ -34,15 +34,19 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
 
     viewBinding {
         android.buildFeatures.viewBinding = true
+    }
+
+    testOptions {
+        unitTests.isIncludeAndroidResources = true
     }
 
 }
@@ -75,6 +79,8 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     //Dagger HILT
     implementation("com.google.dagger:hilt-android:2.48.1")
+    implementation("androidx.test:core-ktx:1.5.0")
+    implementation("androidx.test.ext:junit-ktx:1.1.5")
     kapt("com.google.dagger:hilt-compiler:2.48.1")
     //Room
     implementation("androidx.room:room-ktx:2.6.0")
@@ -89,6 +95,10 @@ dependencies {
     implementation( "androidx.core:core-splashscreen:1.0.1")
 
     testImplementation("junit:junit:4.13.2")
+    testImplementation("androidx.test:core-ktx:1.5.0")
+    testImplementation("androidx.test:runner:1.5.2")
+    testImplementation("org.robolectric:robolectric:4.11.1")
+    testImplementation("io.mockk:mockk:1.13.8")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }

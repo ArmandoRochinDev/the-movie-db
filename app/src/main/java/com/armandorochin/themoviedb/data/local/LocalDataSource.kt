@@ -37,4 +37,8 @@ class LocalDataSource @Inject constructor(
     suspend fun getFirstCreatedMovie():MovieLocal{
         return dao.getFirstCreatedMovie()
     }
+
+    suspend fun insertAndDeleteTransaction(movies: List<MovieLocal>){
+        dao.deleteAllAndInsertTransaction(movies)
+    }
 }
