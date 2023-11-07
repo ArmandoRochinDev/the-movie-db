@@ -1,6 +1,7 @@
 package com.armandorochin.themoviedb.ui.screens.discovery
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,7 +44,7 @@ class DiscoveryMoviesFragment : Fragment() {
         adapter = null
     }
     private fun setupRecycler() {
-        adapter = DiscoveryAdapter { onMovieClicked(it) }
+        adapter = DiscoveryAdapter(false) { onMovieClicked(it) }
         binding.rvMovies.layoutManager = GridLayoutManager(context, calculateNoOfColumns(requireContext(),180f))
         binding.rvMovies.adapter = adapter
         discoveryViewModel.getDiscoveryLiveData().observe(viewLifecycleOwner){ movies ->
@@ -53,6 +54,7 @@ class DiscoveryMoviesFragment : Fragment() {
         }
     }
     private fun onMovieClicked(movie: Movie){
-        (activity as MainActivity).loadFragment(DetailMovieFragment(movie.movieId))
+        Log.d("FragmentWTF", movie.title)
+        (activity as MainActivity).loadFragmentToBackstack(DetailMovieFragment(movie.movieId))
     }
 }

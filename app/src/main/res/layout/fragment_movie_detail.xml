@@ -13,7 +13,7 @@
         <ImageView
             android:id="@+id/details_backdrop"
             android:layout_width="match_parent"
-            android:layout_height="240dp"
+            android:layout_height="340dp"
             android:scaleType="centerCrop"
             tools:ignore="ContentDescription"
             app:layout_constraintBaseline_toTopOf="parent"
@@ -22,9 +22,9 @@
 
         <ImageView
             android:id="@+id/details_poster"
-            android:layout_width="80dp"
-            android:layout_height="160dp"
-            android:layout_marginTop="160dp"
+            android:layout_width="160dp"
+            android:layout_height="220dp"
+            android:layout_marginTop="180dp"
             android:layout_marginStart="@dimen/padding_normal"
             android:scaleType="centerCrop"
             app:layout_constraintTop_toTopOf="parent"

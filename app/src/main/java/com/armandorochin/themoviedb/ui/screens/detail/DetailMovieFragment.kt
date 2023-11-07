@@ -40,24 +40,6 @@ class DetailMovieFragment(private val movieId:Int) : Fragment(){
         return binding.root
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        val callback: OnBackPressedCallback =
-            object : OnBackPressedCallback(true)
-            {
-                override fun handleOnBackPressed() {
-                    // Leave empty do disable back press or
-                    // write your code which you want
-                    (activity as MainActivity).loadFragment(DiscoveryMoviesFragment())
-                }
-            }
-        requireActivity().onBackPressedDispatcher.addCallback(
-            this,
-            callback
-        )
-    }
-
     private fun setupUI(movie: Movie) {
         binding.detailsTitle.text = movie.title
         binding.detailsReleaseDate.text = "${getString(R.string.estreno)}: ${movie.releaseDate} "

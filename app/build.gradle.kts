@@ -81,6 +81,7 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.48.1")
     implementation("androidx.test:core-ktx:1.5.0")
     implementation("androidx.test.ext:junit-ktx:1.1.5")
+    implementation("androidx.palette:palette-ktx:1.0.0")
     kapt("com.google.dagger:hilt-compiler:2.48.1")
     //Room
     implementation("androidx.room:room-ktx:2.6.0")

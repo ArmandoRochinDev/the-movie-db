@@ -9,8 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import com.armandorochin.themoviedb.R
-import com.armandorochin.themoviedb.databinding.ActivityHomeBinding
+import com.armandorochin.themoviedb.databinding.ActivityMainBinding
+import com.armandorochin.themoviedb.ui.screens.detail.DetailMovieFragment
 import com.armandorochin.themoviedb.ui.screens.discovery.DiscoveryMoviesFragment
+import com.armandorochin.themoviedb.ui.screens.home.HomeFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -19,11 +21,11 @@ class MainActivity : AppCompatActivity(){
     private var keep = true
     private val delay = 700L
 
-    private lateinit var binding: ActivityHomeBinding
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
-        binding = ActivityHomeBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setupSplashscreen(splashScreen)
@@ -31,7 +33,7 @@ class MainActivity : AppCompatActivity(){
         if (savedInstanceState == null){
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
-                add<DiscoveryMoviesFragment>(R.id.fragmentContainer)
+                add<HomeFragment>(R.id.fragmentContainer)
             }
         }
     }
@@ -43,10 +45,17 @@ class MainActivity : AppCompatActivity(){
         }, delay)
     }
 
-    fun loadFragment(fragment: Fragment){
+    fun loadHomeFragment(){
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragmentContainer, HomeFragment())
+        transaction.disallowAddToBackStack()
+        transaction.commit()
+    }
+
+    fun loadFragmentToBackstack(fragment: Fragment){
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragmentContainer, fragment)
-        transaction.disallowAddToBackStack()
+        transaction.addToBackStack(fragment.tag)
         transaction.commit()
     }
 }
