@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <integer name="max_lines">7</integer>
+    <integer name="max_lines">15</integer>
     <integer name="anim_duration_long">400</integer>
 
 </resources>

@@ -1,5 +1,6 @@
 package com.armandorochin.themoviedb.data.local.movie
 
+import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
@@ -31,4 +32,7 @@ interface MoviesDao{
         deleteAllDiscoveryMovies()
         insertAll(movies)
     }
+
+    @Query("SELECT * FROM MovieLocal WHERE movieId = :movieId")
+    fun getMovie(movieId: Int) : LiveData<MovieLocal>
 }

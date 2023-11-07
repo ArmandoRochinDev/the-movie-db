@@ -5,6 +5,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import com.armandorochin.themoviedb.R
@@ -27,8 +28,6 @@ class MainActivity : AppCompatActivity(){
 
         setupSplashscreen(splashScreen)
 
-        setSupportActionBar(binding.toolbarLayout.toolbar)
-
         if (savedInstanceState == null){
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
@@ -42,5 +41,12 @@ class MainActivity : AppCompatActivity(){
         Handler(Looper.getMainLooper()).postDelayed({
             keep = false
         }, delay)
+    }
+
+    fun loadFragment(fragment: Fragment){
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragmentContainer, fragment)
+        transaction.disallowAddToBackStack()
+        transaction.commit()
     }
 }

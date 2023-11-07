@@ -1,5 +1,6 @@
 package com.armandorochin.themoviedb.data.local
 
+import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
 import androidx.room.RoomDatabase
 import com.armandorochin.themoviedb.data.local.movie.MovieLocal
@@ -27,8 +28,8 @@ class LocalDataSource @Inject constructor(
         return dao.getDiscoveryMovies()
     }
 
-    fun getDatabase(): RoomDatabase{
-        return database
+    fun getDiscoveryMovie(movieId:Int): LiveData<MovieLocal>{
+        return dao.getMovie(movieId)
     }
 
     suspend fun getLastCreatedMovie():MovieLocal{

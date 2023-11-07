@@ -32,6 +32,10 @@ class MoviesRepository @Inject constructor(
             pagingData.map { it.toMovie() }
         }
     }
+
+    fun getDiscoveryMovie(movieId:Int): LiveData<Movie>{
+        return localDataSource.getDiscoveryMovie(movieId).map { it.toMovie() }
+    }
     companion object {
         const val NETWORK_PAGE_SIZE = 20
     }

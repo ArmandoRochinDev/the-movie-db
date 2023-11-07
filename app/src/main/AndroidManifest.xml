@@ -18,7 +18,8 @@
         <activity
             android:name=".ui.screens.main.MainActivity"
             android:exported="true"
-            android:theme="@style/Base.Theme.TheMovieDB.Starting">
+            android:theme="@style/Base.Theme.TheMovieDB.Starting"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

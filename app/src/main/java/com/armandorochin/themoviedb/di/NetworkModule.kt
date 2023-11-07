@@ -14,7 +14,9 @@ import javax.inject.Singleton
 object NetworkModule {
 
     private const val BASEURL = "https://api.themoviedb.org/3/"
-    const val IMAGEURL = "https://image.tmdb.org/t/p/w185/"
+    const val IMAGEURL_185 = "https://image.tmdb.org/t/p/w185/"
+    const val IMAGEURL_500 = "https://image.tmdb.org/t/p/w500/"
+    const val IMAGEURL_ORIGINAL = "https://image.tmdb.org/t/p/original/"
     @Provides
     @Singleton
     fun provideRetrofit() : Retrofit{
