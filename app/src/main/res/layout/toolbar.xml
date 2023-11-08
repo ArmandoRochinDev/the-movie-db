@@ -8,6 +8,5 @@
     android:elevation="4dp"
     app:titleTextColor="@color/white"
     android:theme="@style/Base.Theme.TheMovieDB"
-    app:popupTheme="@style/Base.Theme.TheMovieDB"
-    />
+    app:popupTheme="@style/Base.Theme.TheMovieDB"/>
     <!-- app:popupTheme="@style/ThemeOverlay.AppCompat.Light" -->

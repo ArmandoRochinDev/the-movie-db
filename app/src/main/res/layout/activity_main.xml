@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".ui.screens.main.MainActivity">
 
+    <include android:id="@+id/layout_toolbar" layout="@layout/toolbar"/>
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainer"
         android:layout_height="0dp"
@@ -13,6 +15,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/layout_toolbar"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

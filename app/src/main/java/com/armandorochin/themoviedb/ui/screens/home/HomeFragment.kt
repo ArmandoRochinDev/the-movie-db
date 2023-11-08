@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.armandorochin.themoviedb.databinding.FragmentHomeBinding
 import com.armandorochin.themoviedb.domain.model.Movie
 import com.armandorochin.themoviedb.ui.screens.detail.DetailMovieFragment
@@ -23,7 +24,8 @@ class HomeFragment: Fragment() {
     private val binding get() = _binding!!
 
     private val homeViewModel: HomeViewModel by viewModels()
-    private var discoveryAdapter: DiscoveryAdapter? = null
+    private var bigAdapter = DiscoveryAdapter(440, true) { onMovieClicked(it) }
+    private var smallAdapter = DiscoveryAdapter(220, false) { onMovieClicked(it) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,27 +33,38 @@ class HomeFragment: Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        setupDiscoveryRecycler()
+        setupRecycler(binding.rvDiscoveryMovies, bigAdapter)
+        setupRecycler(binding.rvNowplayingMovies, smallAdapter)
+        setupRecycler(binding.rvTopMovies, bigAdapter)
+        setupRecycler(binding.rvPopularMovies, smallAdapter)
+
+        setupUI()
 
         return binding.root
     }
 
-    private fun setupDiscoveryRecycler() {
-        discoveryAdapter = DiscoveryAdapter(true) { onMovieClicked(it) }
-        binding.rvDiscoveryMovies.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        binding.rvDiscoveryMovies.adapter = discoveryAdapter
+    private fun setupRecycler(rv:RecyclerView, _adapter: DiscoveryAdapter?) {
+        rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        rv.adapter = _adapter
+
         homeViewModel.getDiscoveryLiveData().observe(viewLifecycleOwner){ movies ->
             viewLifecycleOwner.lifecycleScope.launch{
-                discoveryAdapter?.submitData(movies)
+                _adapter?.submitData(movies)
             }
         }
+    }
 
-        binding.tvDiscover.text = "Discover"
-        binding.tvDiscoveryMore.text = "More"
-        binding.tvDiscoveryMore.setOnClickListener { (activity as MainActivity).loadFragmentToBackstack(DiscoveryMoviesFragment())}
+    private fun setupUI(){
+        //binding.layoutToolbar.toolbar.title = "TMDb - ShowCase App"
+        (activity as MainActivity).supportActionBar?.title = "TMDb - ShowCase App"
+
+        binding.tvDiscoveryMore.setOnClickListener { (activity as MainActivity).addFragmentToBackstack(DiscoveryMoviesFragment("Discover"))}
+        binding.tvNowplayingMore.setOnClickListener { (activity as MainActivity).addFragmentToBackstack(DiscoveryMoviesFragment("Now Playing"))}
+        binding.tvTopMore.setOnClickListener { (activity as MainActivity).addFragmentToBackstack(DiscoveryMoviesFragment("Top Rated"))}
+        binding.tvPopularMore.setOnClickListener { (activity as MainActivity).addFragmentToBackstack(DiscoveryMoviesFragment("Popular"))}
     }
 
     private fun onMovieClicked(movie: Movie){
-        (activity as MainActivity).loadFragmentToBackstack(DetailMovieFragment(movie.movieId))
+        (activity as MainActivity).addFragmentToBackstack(DetailMovieFragment(movie.movieId))
     }
 }

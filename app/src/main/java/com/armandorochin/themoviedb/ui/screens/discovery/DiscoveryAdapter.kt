@@ -16,14 +16,19 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.BitmapImageViewTarget
 import com.bumptech.glide.request.transition.Transition
 
-class DiscoveryAdapter(private val isFromMainFragment:Boolean, private val onClickListener:(Movie) -> Unit) : PagingDataAdapter<Movie, DiscoveryMovieViewHolder>(MovieDiffCallBack()){
+class DiscoveryAdapter(
+    private val widthItem:Int,
+    private val useBackdropImage:Boolean,
+    private val onClickListener:(Movie) -> Unit
+) : PagingDataAdapter<Movie, DiscoveryMovieViewHolder>(MovieDiffCallBack()){
     override fun onBindViewHolder(holder: DiscoveryMovieViewHolder, position: Int) {
         holder.bind(getItem(position), onClickListener)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DiscoveryMovieViewHolder {
         return DiscoveryMovieViewHolder(
-            isFromMainFragment,
+            widthItem,
+            useBackdropImage,
             ItemMovieBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
@@ -32,14 +37,16 @@ class DiscoveryAdapter(private val isFromMainFragment:Boolean, private val onCli
 }
 
 class DiscoveryMovieViewHolder(
-    private val isBigItem:Boolean,
+    private val widthItem:Int,
+    private val useBackdropImage:Boolean,
     private val binding: ItemMovieBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(movie: Movie?, onClickListener:(Movie) -> Unit) {
 
-        binding.root.layoutParams.width = if(isBigItem) 440 else binding.root.layoutParams.width
-        val imageUrl = if(isBigItem) movie?.backdropPath else movie?.posterPath
+        //binding.root.layoutParams.width = if(isBigItem) 440 else 220
+        binding.root.layoutParams.width = if(widthItem != -1) widthItem else binding.root.layoutParams.width
+        val imageUrl = if(useBackdropImage) movie?.backdropPath else movie?.posterPath
 
         binding.tvTitle.text = movie?.title ?: ""
         itemView.setOnClickListener { onClickListener(movie!!) }

@@ -1,11 +1,13 @@
 package com.armandorochin.themoviedb.ui.screens.discovery
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -19,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class DiscoveryMoviesFragment : Fragment() {
+class DiscoveryMoviesFragment(private val title:String) : Fragment() {
 
     private var _binding:FragmentDiscoveryMoviesBinding? = null
     private val binding get() = _binding!!
@@ -34,17 +36,29 @@ class DiscoveryMoviesFragment : Fragment() {
         _binding = FragmentDiscoveryMoviesBinding.inflate(inflater, container, false)
 
         setupRecycler()
+        (activity as MainActivity).supportActionBar?.title = title
 
         return binding.root
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
         adapter = null
     }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        val callback: OnBackPressedCallback = object :
+            OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                this.remove()
+                activity?.onBackPressed()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
     private fun setupRecycler() {
-        adapter = DiscoveryAdapter(false) { onMovieClicked(it) }
+        adapter = DiscoveryAdapter(-1, false) { onMovieClicked(it) }
         binding.rvMovies.layoutManager = GridLayoutManager(context, calculateNoOfColumns(requireContext(),180f))
         binding.rvMovies.adapter = adapter
         discoveryViewModel.getDiscoveryLiveData().observe(viewLifecycleOwner){ movies ->
@@ -54,7 +68,6 @@ class DiscoveryMoviesFragment : Fragment() {
         }
     }
     private fun onMovieClicked(movie: Movie){
-        Log.d("FragmentWTF", movie.title)
-        (activity as MainActivity).loadFragmentToBackstack(DetailMovieFragment(movie.movieId))
+        (activity as MainActivity).addFragmentToBackstack(DetailMovieFragment(movie.movieId))
     }
 }

@@ -27,6 +27,9 @@
         <item name="colorOnSurfaceInverse">@color/md_theme_light_inverseOnSurface</item>
         <item name="colorSurfaceInverse">@color/md_theme_light_inverseSurface</item>
         <item name="colorPrimaryInverse">@color/md_theme_light_inversePrimary</item>
+
+        <!-- toolbar -->
+        <item name="colorControlNormal">@color/white</item>
     </style>
 
     <style name="Base.Theme.TheMovieDB.Starting" parent="Theme.SplashScreen">
@@ -34,6 +37,12 @@
         <item name="windowSplashScreenAnimationDuration">300</item>
         <item name="postSplashScreenTheme">@style/Base.Theme.TheMovieDB</item>
     </style>
+
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.DayNight.ActionBar">
+        <!-- Customize color of navigation drawer icon and back arrow -->
+        <item name="colorControlNormal">@color/white</item>
+    </style>
+
 
     <style name="Theme.TheMovieDB" parent="Base.Theme.TheMovieDB" />
 </resources>
