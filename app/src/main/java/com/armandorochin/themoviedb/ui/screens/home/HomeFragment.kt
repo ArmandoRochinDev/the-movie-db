@@ -25,8 +25,8 @@ class HomeFragment: Fragment() {
     private val binding get() = _binding!!
 
     private val homeViewModel: HomeViewModel by viewModels()
-    private var bigAdapter = DiscoveryAdapter(440, true) { onMovieClicked(it) }
-    private var smallAdapter = DiscoveryAdapter(220, false) { onMovieClicked(it) }
+    private var bigAdapter = DiscoveryAdapter(680, true) { onMovieClicked(it) }
+    private var smallAdapter = DiscoveryAdapter(360, false) { onMovieClicked(it) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
