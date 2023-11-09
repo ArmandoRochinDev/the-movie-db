@@ -94,6 +94,8 @@ dependencies {
     implementation( "androidx.paging:paging-runtime-ktx:3.2.1")
     //splashscreen
     implementation( "androidx.core:core-splashscreen:1.0.1")
+    //CircleImageView
+    implementation("de.hdodenhof:circleimageview:3.1.0")
 
     testImplementation("junit:junit:4.13.2")
     testImplementation("androidx.test:core-ktx:1.5.0")

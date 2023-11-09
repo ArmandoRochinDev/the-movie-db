@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.screens.main.MainActivity"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/details_backdrop"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:background="@color/md_theme_light_onPrimaryContainer"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBaseline_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_picture"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="16dp"
+            app:civ_border_width="4dp"
+            app:civ_border_color="@color/md_theme_light_primary"
+            android:src="@mipmap/ic_launcher"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/app_name"/>
+
+        <TextView
+            android:id="@+id/dev_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Armando Rochin"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            style="@style/TmdbMargin.Title"
+            app:layout_constraintTop_toBottomOf="@id/profile_picture"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/dev_tech"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Android developer"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            style="@style/TmdbMargin.Small"
+            app:layout_constraintTop_toBottomOf="@id/dev_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_profile"
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dev_tech">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivGoogleplay"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
+                    android:padding="@dimen/padding_extra_large"
+                    android:src="@drawable/ic_googleplay"
+                    android:contentDescription="@string/app_name"
+                    app:tint="@color/md_theme_light_outline"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"/>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="50dp"
+                    android:background="@color/md_theme_light_outline"
+                    android:layout_gravity="center_vertical"/>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivGithub"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
+                    android:padding="@dimen/padding_extra_large"
+                    android:src="@drawable/ic_github"
+                    android:contentDescription="@string/app_name"
+                    app:tint="@color/md_theme_light_outline"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"/>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="50dp"
+                    android:background="@color/md_theme_light_outline"
+                    android:layout_gravity="center_vertical"/>
+
+                <ImageView
+                    android:id="@+id/ivCv"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_cv"
+                    android:contentDescription="@string/app_name"
+                    android:padding="@dimen/padding_extra_large"
+                    app:tint="@color/md_theme_light_outline"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"/>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- App Info -->
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/cv_profile"
+            android:layout_margin="@dimen/padding_normal"
+            style="@style/TmdbMargin.Title"
+            android:text="@string/app_name"/>
+
+        <TextView
+            android:id="@+id/subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            style="@style/TextAppearance.AppCompat.Body2"
+            android:layout_marginLeft="@dimen/padding_normal"
+            android:layout_marginRight="@dimen/padding_normal"
+            android:text="@string/app_version"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/subtitle"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_margin="@dimen/padding_normal"
+            android:text="@string/about"
+            android:autoLink="web"
+            android:justificationMode="inter_word"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

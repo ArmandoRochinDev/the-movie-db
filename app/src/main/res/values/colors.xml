@@ -68,6 +68,7 @@
 
 
     <!-- Extras -->
+    <color name="colorPrimaryTMDB">#0d253f</color>
     <color name="colorPrimary">#333333</color>
     <color name="colorPrimaryDark">#1E1E1E</color>
     <color name="colorAccent">#4CAF50</color>
