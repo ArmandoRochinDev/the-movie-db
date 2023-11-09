@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.armandorochin.themoviedb.R
 import com.armandorochin.themoviedb.databinding.FragmentHomeBinding
 import com.armandorochin.themoviedb.domain.model.Movie
 import com.armandorochin.themoviedb.ui.screens.detail.DetailMovieFragment
@@ -58,10 +59,10 @@ class HomeFragment: Fragment() {
         //binding.layoutToolbar.toolbar.title = "TMDb - ShowCase App"
         (activity as MainActivity).supportActionBar?.title = "TMDb - ShowCase App"
 
-        binding.tvDiscoveryMore.setOnClickListener { (activity as MainActivity).addFragmentToBackstack(DiscoveryMoviesFragment("Discover"))}
-        binding.tvNowplayingMore.setOnClickListener { (activity as MainActivity).addFragmentToBackstack(DiscoveryMoviesFragment("Now Playing"))}
-        binding.tvTopMore.setOnClickListener { (activity as MainActivity).addFragmentToBackstack(DiscoveryMoviesFragment("Top Rated"))}
-        binding.tvPopularMore.setOnClickListener { (activity as MainActivity).addFragmentToBackstack(DiscoveryMoviesFragment("Popular"))}
+        binding.tvDiscoveryMore.setOnClickListener { (activity as MainActivity).addFragmentToBackstack(DiscoveryMoviesFragment( getString(R.string.discover) ))}
+        binding.tvNowplayingMore.setOnClickListener { (activity as MainActivity).addFragmentToBackstack(DiscoveryMoviesFragment(getString(R.string.nowplaying)))}
+        binding.tvTopMore.setOnClickListener { (activity as MainActivity).addFragmentToBackstack(DiscoveryMoviesFragment(getString(R.string.toprated)))}
+        binding.tvPopularMore.setOnClickListener { (activity as MainActivity).addFragmentToBackstack(DiscoveryMoviesFragment(getString(R.string.popular)))}
     }
 
     private fun onMovieClicked(movie: Movie){

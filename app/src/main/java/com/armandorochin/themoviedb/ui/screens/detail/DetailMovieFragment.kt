@@ -37,7 +37,7 @@ class DetailMovieFragment(private val movieId:Int) : Fragment(){
             setupUI(movie)
         }
 
-        (activity as MainActivity).supportActionBar?.title = "Detalle"
+        (activity as MainActivity).supportActionBar?.title = getString(R.string.detail)
 
         return binding.root
     }

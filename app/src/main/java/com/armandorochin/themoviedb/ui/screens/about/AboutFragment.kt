@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.armandorochin.themoviedb.R
 import com.armandorochin.themoviedb.databinding.FragmentAboutBinding
-import com.armandorochin.themoviedb.databinding.FragmentMovieDetailBinding
 import com.armandorochin.themoviedb.ui.screens.main.MainActivity
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,7 +22,7 @@ class AboutFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentAboutBinding.inflate(inflater, container, false)
 
         setupUI()
@@ -33,7 +33,7 @@ class AboutFragment : Fragment() {
     }
 
     private fun setupUI() {
-        (activity as MainActivity).supportActionBar?.title = "About"
+        (activity as MainActivity).supportActionBar?.title = getString(R.string.about_title)
 
         Glide.with(binding.profilePicture.context).load("https://avatars.githubusercontent.com/u/88679335?v=4").into(binding.profilePicture)
 
