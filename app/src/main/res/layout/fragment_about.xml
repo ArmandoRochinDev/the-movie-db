@@ -151,14 +151,13 @@
             android:text="@string/app_version"/>
 
         <TextView
+            android:id="@+id/tv_about_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/subtitle"
             style="@style/TextAppearance.AppCompat.Body1"
             android:layout_margin="@dimen/padding_normal"
-            android:text="@string/about"
-            android:autoLink="web"
-            android:justificationMode="inter_word"/>
+            android:text="@string/about" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>
