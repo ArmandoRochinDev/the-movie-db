@@ -70,16 +70,10 @@ class AboutFragment : Fragment(), MenuProvider {
         startActivity(browserIntent)
     }
 
-    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-        menuInflater.inflate(R.menu.main, menu)
-    }
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {  }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         return when (menuItem.itemId) {
-            R.id.action_about -> {
-                (activity as MainActivity).addFragmentToBackstack(AboutFragment())
-                true
-            }
             android.R.id.home -> {
                 val fm: FragmentManager = parentFragmentManager
 
