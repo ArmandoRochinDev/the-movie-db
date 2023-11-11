@@ -59,6 +59,11 @@ class HomeFragment: Fragment(), MenuProvider {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).supportActionBar?.show()
+    }
+
     private fun setupRecycler(rv:RecyclerView, _adapter: MoviesAdapter?, category:String) {
         rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         rv.adapter = _adapter
@@ -70,6 +75,7 @@ class HomeFragment: Fragment(), MenuProvider {
         }
     }
     private fun setupUI(){
+        (activity as MainActivity).supportActionBar?.hide()
         (activity as MainActivity).supportActionBar?.title = getString(R.string.app_name)
         (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
         (activity as MainActivity).supportActionBar?.setDisplayShowHomeEnabled(false)

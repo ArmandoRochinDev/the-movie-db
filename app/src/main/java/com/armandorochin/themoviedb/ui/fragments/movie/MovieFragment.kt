@@ -2,28 +2,22 @@ package com.armandorochin.themoviedb.ui.fragments.movie
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import com.armandorochin.themoviedb.R
 import com.armandorochin.themoviedb.databinding.FragmentMovieBinding
 import com.armandorochin.themoviedb.di.NetworkModule
 import com.armandorochin.themoviedb.domain.model.Movie
 import com.armandorochin.themoviedb.ui.MainActivity
-import com.armandorochin.themoviedb.ui.fragments.about.AboutFragment
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 @AndroidEntryPoint
-class MovieFragment(private val movieId:Int) : Fragment(), MenuProvider {
+class MovieFragment(private val movieId:Int) : Fragment() {
     private var _binding:FragmentMovieBinding? = null
     private val binding get() = _binding!!
 
@@ -32,7 +26,7 @@ class MovieFragment(private val movieId:Int) : Fragment(), MenuProvider {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentMovieBinding.inflate(inflater, container, false)
 
         discoveryMovieViewModel.initViewModel(movieId)
@@ -40,47 +34,33 @@ class MovieFragment(private val movieId:Int) : Fragment(), MenuProvider {
             setupUI(movie)
         }
 
-        setupToolbar()
+        (activity as MainActivity).supportActionBar?.hide()
 
         return binding.root
     }
 
-    private fun setupToolbar(){
-        (activity as MainActivity).supportActionBar?.title = getString(R.string.detail)
-        (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        (activity as MainActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
-        val menuHost: MenuHost = requireActivity()
-        menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
-    }
-
     private fun setupUI(movie: Movie) {
         binding.detailsTitle.text = movie.title
-        binding.detailsReleaseDate.text = "${getString(R.string.estreno)}: ${movie.releaseDate} "
-        binding.detailsVoteAverage.text = "${movie.voteAverage}${getString(R.string.voteaverage_append)}"
+        binding.detailsReleaseDate.text = movie.releaseDate
+        binding.detailsVoteAverage.text = roundOffDecimal(movie.voteAverage).toString()
+        binding.detailsOriginalLang.text = movie.originalLanguage
         binding.summary.text = movie.overview
         Glide.with(binding.detailsPoster.context).load("${NetworkModule.IMAGEURL_185}${movie.posterPath}").into(binding.detailsPoster)
-        Glide.with(binding.detailsBackdrop.context).load("${NetworkModule.IMAGEURL_ORIGINAL}${movie.backdropPath}").into(binding.detailsBackdrop)
-    }
+        Glide.with(binding.detailsBackdrop.context)
+            .load("${NetworkModule.IMAGEURL_ORIGINAL}${movie.backdropPath}")
+            .into(binding.detailsBackdrop)
 
-    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-        menuInflater.inflate(R.menu.main, menu)
-    }
+        binding.ivNavigationUp.setOnClickListener {
+            val fm: FragmentManager = parentFragmentManager
 
-    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        return when (menuItem.itemId) {
-            R.id.action_about -> {
-                (activity as MainActivity).addFragmentToBackstack(AboutFragment())
-                true
+            if (fm.backStackEntryCount > 0) {
+                fm.popBackStack()
             }
-            android.R.id.home -> {
-                val fm: FragmentManager = parentFragmentManager
-
-                if (fm.backStackEntryCount > 0) {
-                    fm.popBackStack()
-                }
-                true
-            }
-            else -> false
         }
+    }
+    private fun roundOffDecimal(number: Double): Double {
+        val df = DecimalFormat("#.#")
+        df.roundingMode = RoundingMode.HALF_UP
+        return df.format(number).toDouble()
     }
 }

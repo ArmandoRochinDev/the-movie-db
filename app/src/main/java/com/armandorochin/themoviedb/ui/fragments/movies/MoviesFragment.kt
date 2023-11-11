@@ -17,11 +17,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.armandorochin.themoviedb.R
-import com.armandorochin.themoviedb.data.remote.RemoteMediator.Companion.CAT_DISCOVER
 import com.armandorochin.themoviedb.databinding.FragmentMoviesBinding
 import com.armandorochin.themoviedb.domain.model.Movie
-import com.armandorochin.themoviedb.ui.fragments.about.AboutFragment
 import com.armandorochin.themoviedb.ui.MainActivity
+import com.armandorochin.themoviedb.ui.fragments.about.AboutFragment
 import com.armandorochin.themoviedb.ui.fragments.movie.MovieFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -53,7 +52,14 @@ class MoviesFragment : Fragment(), MenuProvider {
         super.onDestroyView()
         adapter = null
     }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).supportActionBar?.show()
+    }
+
     private fun setupToolbar(params: Bundle?){
+        (activity as MainActivity).supportActionBar?.show()
         (activity as MainActivity).supportActionBar?.title = params?.getString(titleKey) ?: defaultTitle
         (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         (activity as MainActivity).supportActionBar?.setDisplayShowHomeEnabled(true)

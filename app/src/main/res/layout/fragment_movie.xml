@@ -11,26 +11,52 @@
         android:layout_width="match_parent">
 
         <ImageView
+            android:id="@+id/iv_navigation_up"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:scaleType="center"
+            android:src="@drawable/ic_back"
+            android:contentDescription="@string/app_version"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:elevation="@dimen/z_app_bar"/>
+
+        <ImageView
             android:id="@+id/details_backdrop"
             android:layout_width="match_parent"
             android:layout_height="@dimen/backdrop_height"
-            android:scaleType="centerCrop"
+            tools:background="@color/black_translucent_60"
             tools:ignore="ContentDescription"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBaseline_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-        <ImageView
-            android:id="@+id/details_poster"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_details_poster"
             android:layout_width="@dimen/poster_width"
             android:layout_height="@dimen/poster_height"
             android:layout_marginTop="@dimen/poster_margin"
             android:layout_marginStart="@dimen/padding_normal"
-            android:scaleType="centerCrop"
+            app:cardCornerRadius="@dimen/card_radius"
+            app:cardElevation="@dimen/z_app_bar"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:contentDescription="@string/app_name"/>
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:id="@+id/details_poster"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:src="@drawable/ic_github"
+                android:scaleType="centerCrop"
+                android:contentDescription="@string/app_name"/>
+
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/details_title"
@@ -38,48 +64,83 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             tools:text="@string/app_name"
-            android:layout_marginTop="@dimen/padding_normal"
             android:layout_marginStart="@dimen/padding_normal"
+            android:layout_marginTop="@dimen/padding_normal"
+            android:textColor="?colorPrimary"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            app:layout_constraintStart_toEndOf="@id/details_poster"
+            app:layout_constraintStart_toEndOf="@id/card_details_poster"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/details_backdrop"/>
 
         <TextView
-            android:id="@+id/details_release_date"
-            style="@style/ThemoviedbMargin.Small"
+            android:id="@+id/details_vote_average"
+            android:background="@drawable/circle_border"
+            android:layout_width="@dimen/rating_size"
+            android:layout_height="@dimen/rating_size"
+            android:layout_marginTop="@dimen/padding_normal"
+            android:textColor="?colorSecondary"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/details_title"
+            app:layout_constraintTop_toBottomOf="@id/details_title"
+            android:gravity="center"
+            tools:text="9.9"/>
+
+        <TextView
+            android:id="@+id/details_original_lang"
+            android:background="@drawable/rectangle_border"
+            android:layout_width="@dimen/rating_size"
+            android:layout_height="@dimen/rating_size"
+            android:textStyle="bold"
+            android:layout_marginStart="@dimen/padding_medium"
+            android:textAllCaps="true"
+            android:textColor="?colorSecondary"
+            app:layout_constraintTop_toTopOf="@id/details_vote_average"
+            app:layout_constraintStart_toEndOf="@id/details_vote_average"
+            app:layout_constraintTop_toBottomOf="@id/details_title"
+            android:gravity="center"
+            tools:text="ES"/>
+
+        <TextView
+            android:id="@+id/details_release_date_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_normal"
+            android:layout_marginStart="@dimen/padding_large"
+            android:textStyle="italic"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/details_poster"
-            tools:text="Release Date: 21-11-2022"/>
+            app:layout_constraintTop_toBottomOf="@id/card_details_poster"
+            android:text="@string/estreno"/>
 
         <TextView
-            android:id="@+id/details_vote_average"
-            style="@style/ThemoviedbMargin.Small"
+            android:id="@+id/details_release_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/details_release_date"
-            tools:text="8.23/10"/>
+            android:textStyle="bold"
+            android:textColor="?colorSecondary"
+            app:layout_constraintStart_toStartOf="@id/details_release_date_title"
+            app:layout_constraintTop_toBottomOf="@id/details_release_date_title"
+            tools:text="21-11-2022"/>
+
+
 
         <TextView
             android:id="@+id/summary_label"
-            style="@style/ThemoviedbMargin.Title"
+            style="@style/TextAppearance.AppCompat.Subhead"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_normal"
+            android:layout_marginStart="@dimen/padding_normal"
             android:text="@string/summary"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/details_vote_average"/>
+            app:layout_constraintTop_toBottomOf="@id/details_release_date"/>
 
         <TextView
             android:id="@+id/summary"
             style="@style/ThemoviedbMargin.Body"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/padding_normal"
-            android:paddingEnd="@dimen/padding_normal"
+            android:layout_marginStart="@dimen/padding_normal"
+            android:layout_marginEnd="@dimen/padding_normal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/summary_label"
