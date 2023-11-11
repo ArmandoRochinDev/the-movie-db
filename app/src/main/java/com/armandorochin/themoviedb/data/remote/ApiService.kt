@@ -5,8 +5,8 @@ import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
 
-interface DiscoveryService {
-    @GET("discover/movie?language=es-MX&sort_by=popularity.desc")
+interface ApiService {
+    @GET("discover/movie?language=es-MX")
     @Headers("Authorization: Bearer ${BuildConfig.TMDB_API_TOKEN}")
-    suspend fun getDiscoveryMovies(@Query("page") page:Int):DiscoveryResponse
+    suspend fun getMovies(@Query("page") page:Int):ServiceResponse
 }

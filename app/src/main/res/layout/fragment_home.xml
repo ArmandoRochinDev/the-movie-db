@@ -2,7 +2,7 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.screens.main.MainActivity"
+    tools:context=".ui.MainActivity"
     android:layout_height="match_parent"
     android:layout_width="match_parent">
     <LinearLayout
@@ -13,18 +13,18 @@
         <!-- Discover -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="@dimen/cat_title_height"
             android:orientation="horizontal"
             android:layout_marginTop="@dimen/padding_normal">
             <TextView
                 android:id="@+id/tv_discover"
                 android:text="@string/discover"
-                style="@style/TmdbMargin.Subtitle"/>
+                style="@style/ThemoviedbMargin.Subtitle"/>
 
             <TextView
                 android:id="@+id/tv_discovery_more"
                 android:text="@string/more"
-                style="@style/TmdbMargin.More"/>
+                style="@style/ThemoviedbMargin.More"/>
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvDiscoveryMovies"
@@ -34,18 +34,18 @@
         <!-- Now Playing -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="@dimen/cat_title_height"
             android:orientation="horizontal"
             android:layout_marginTop="@dimen/padding_normal">
             <TextView
                 android:id="@+id/tv_nowplaying"
                 android:text="@string/nowplaying"
-                style="@style/TmdbMargin.Subtitle"/>
+                style="@style/ThemoviedbMargin.Subtitle"/>
 
             <TextView
                 android:id="@+id/tv_nowplaying_more"
                 android:text="@string/more"
-                style="@style/TmdbMargin.More"/>
+                style="@style/ThemoviedbMargin.More"/>
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvNowplayingMovies"
@@ -55,18 +55,18 @@
         <!-- Top rated -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="@dimen/cat_title_height"
             android:orientation="horizontal"
             android:layout_marginTop="@dimen/padding_normal">
             <TextView
                 android:id="@+id/tv_top"
                 android:text="@string/toprated"
-                style="@style/TmdbMargin.Subtitle"/>
+                style="@style/ThemoviedbMargin.Subtitle"/>
 
             <TextView
                 android:id="@+id/tv_top_more"
                 android:text="@string/more"
-                style="@style/TmdbMargin.More"/>
+                style="@style/ThemoviedbMargin.More"/>
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvTopMovies"
@@ -76,18 +76,18 @@
         <!-- Popular -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="@dimen/cat_title_height"
             android:orientation="horizontal"
             android:layout_marginTop="@dimen/padding_normal">
             <TextView
                 android:id="@+id/tv_popular"
                 android:text="@string/popular"
-                style="@style/TmdbMargin.Subtitle"/>
+                style="@style/ThemoviedbMargin.Subtitle"/>
 
             <TextView
                 android:id="@+id/tv_popular_more"
                 android:text="@string/more"
-                style="@style/TmdbMargin.More"/>
+                style="@style/ThemoviedbMargin.More"/>
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvPopularMovies"

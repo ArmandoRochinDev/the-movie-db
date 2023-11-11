@@ -2,7 +2,7 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.screens.main.MainActivity"
+    tools:context=".ui.MainActivity"
     android:layout_height="match_parent"
     android:layout_width="match_parent">
 
@@ -13,7 +13,7 @@
         <View
             android:id="@+id/details_backdrop"
             android:layout_width="match_parent"
-            android:layout_height="280dp"
+            android:layout_height="@dimen/about_width_background"
             android:background="@color/md_theme_light_onPrimaryContainer"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBaseline_toTopOf="parent"
@@ -22,10 +22,10 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_picture"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="16dp"
-            app:civ_border_width="4dp"
+            android:layout_width="@dimen/profile_picture_size"
+            android:layout_height="@dimen/profile_picture_size"
+            android:layout_marginTop="@dimen/padding_large"
+            app:civ_border_width="@dimen/profile_picture_border"
             app:civ_border_color="@color/md_theme_light_primary"
             android:src="@mipmap/ic_launcher"
             app:layout_constraintTop_toTopOf="parent"
@@ -37,10 +37,10 @@
             android:id="@+id/dev_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Armando Rochin"
+            android:text="@string/dev_name"
             android:textAlignment="center"
             android:textColor="@color/white"
-            style="@style/TmdbMargin.Title"
+            style="@style/ThemoviedbMargin.Title"
             app:layout_constraintTop_toBottomOf="@id/profile_picture"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
@@ -49,23 +49,23 @@
             android:id="@+id/dev_tech"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Android developer"
+            android:text="@string/dev_job"
             android:textAlignment="center"
             android:textColor="@color/white"
-            style="@style/TmdbMargin.Small"
+            style="@style/ThemoviedbMargin.Small"
             app:layout_constraintTop_toBottomOf="@id/dev_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_profile"
-            android:layout_width="300dp"
-            android:layout_height="100dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp"
+            android:layout_width="@dimen/socialnetwork_card_width"
+            android:layout_height="@dimen/socialnetwork_card_height"
+            app:cardCornerRadius="@dimen/card_radius"
+            app:cardElevation="@dimen/z_app_bar"
             android:layout_marginTop="50dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginStart="@dimen/padding_medium"
+            android:layout_marginEnd="@dimen/padding_medium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/dev_tech">
@@ -89,8 +89,8 @@
                     android:clickable="true"/>
 
                 <View
-                    android:layout_width="1dp"
-                    android:layout_height="50dp"
+                    android:layout_width="@dimen/separator_width"
+                    android:layout_height="@dimen/separator_height"
                     android:background="@color/md_theme_light_outline"
                     android:layout_gravity="center_vertical"/>
 
@@ -105,11 +105,12 @@
                     android:contentDescription="@string/app_name"
                     app:tint="@color/md_theme_light_outline"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"/>
+                    android:clickable="true"
+                    android:focusable="true" />
 
                 <View
-                    android:layout_width="1dp"
-                    android:layout_height="50dp"
+                    android:layout_width="@dimen/separator_width"
+                    android:layout_height="@dimen/separator_height"
                     android:background="@color/md_theme_light_outline"
                     android:layout_gravity="center_vertical"/>
 
@@ -137,7 +138,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/cv_profile"
             android:layout_margin="@dimen/padding_normal"
-            style="@style/TmdbMargin.Title"
+            style="@style/ThemoviedbMargin.Title"
             android:text="@string/app_name"/>
 
         <TextView

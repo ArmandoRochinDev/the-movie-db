@@ -6,10 +6,10 @@ import com.armandorochin.themoviedb.data.MoviesRepository
 import com.armandorochin.themoviedb.domain.model.Movie
 import javax.inject.Inject
 
-class RequestDiscoveryMovies @Inject constructor(
+class RequestMovies @Inject constructor(
     private val repository: MoviesRepository
 ) {
     operator fun invoke(): LiveData<PagingData<Movie>> {
-        return repository.getDiscoveryMovies()
+        return repository.getMovies()
     }
 }

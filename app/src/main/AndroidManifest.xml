@@ -16,10 +16,9 @@
         android:theme="@style/Theme.TheMovieDB"
         tools:targetApi="31">
         <activity
-            android:name=".ui.screens.main.MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true"
-            android:theme="@style/Base.Theme.TheMovieDB.Starting"
-            android:screenOrientation="portrait">
+            android:theme="@style/Base.Theme.TheMovieDB.Starting">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

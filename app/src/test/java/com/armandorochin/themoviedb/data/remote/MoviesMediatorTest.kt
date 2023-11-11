@@ -23,7 +23,7 @@ import java.util.Date
 
 
 @RunWith(RobolectricTestRunner::class)
-class DiscoveryMediatorTest{
+class MoviesMediatorTest{
     private lateinit var moviesDao: MoviesDao
     private lateinit var db: TmdbDatabase
     @RelaxedMockK
@@ -48,9 +48,9 @@ class DiscoveryMediatorTest{
     fun `when load type is refresh and page is one delete and insert movies`() = runBlocking {
         //Given
         coEvery { localDataSource.count() } returns 0
-        coEvery { remoteDataSource.getDiscoveryMovies(1) } returns DiscoveryResponse(movies = emptyList(), page = 1, totalResults = 0, totalPages = 0)
+        coEvery { remoteDataSource.getDiscoveryMovies(1) } returns ServiceResponse(movies = emptyList(), page = 1, totalResults = 0, totalPages = 0)
         val pagingState = mockk<PagingState<Int,  MovieLocal>>()
-        val mediator = DiscoveryMediator(localDataSource, remoteDataSource)
+        val mediator = MoviesMediator(localDataSource, remoteDataSource)
         val response = remoteDataSource.getDiscoveryMovies(1)
 
 
@@ -68,9 +68,9 @@ class DiscoveryMediatorTest{
     fun `when load type is append and page is not one insert movies`() = runBlocking {
         //Given
         coEvery { localDataSource.getLastCreatedMovie() } returns MovieLocal(uid = 1, adult = false, backdropPath = "", genreIds = emptyList(), movieId = 1, originalLanguage = "", originalTitle = "", overview = "", popularity = 1.0, posterPath = "", releaseDate = "", title = "", video = false, voteAverage = 1.0, voteCount = 1, page = 2, createdAt = Date() )
-        coEvery { remoteDataSource.getDiscoveryMovies(1) } returns DiscoveryResponse(movies = emptyList(), page = 2, totalResults = 0, totalPages = 0)
+        coEvery { remoteDataSource.getDiscoveryMovies(1) } returns ServiceResponse(movies = emptyList(), page = 2, totalResults = 0, totalPages = 0)
         val pagingState = mockk<PagingState<Int,  MovieLocal>>()
-        val mediator = DiscoveryMediator(localDataSource, remoteDataSource)
+        val mediator = MoviesMediator(localDataSource, remoteDataSource)
         val response = remoteDataSource.getDiscoveryMovies(1)
 
 

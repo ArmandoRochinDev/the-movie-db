@@ -1,6 +1,6 @@
 package com.armandorochin.themoviedb.di
 
-import com.armandorochin.themoviedb.data.remote.DiscoveryService
+import com.armandorochin.themoviedb.data.remote.ApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,7 +28,7 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideMoviesService(retrofit: Retrofit): DiscoveryService{
-        return retrofit.create(DiscoveryService::class.java)
+    fun provideMoviesService(retrofit: Retrofit): ApiService{
+        return retrofit.create(ApiService::class.java)
     }
 }

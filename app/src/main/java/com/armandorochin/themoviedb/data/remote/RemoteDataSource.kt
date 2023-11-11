@@ -3,9 +3,9 @@ package com.armandorochin.themoviedb.data.remote
 import javax.inject.Inject
 
 class RemoteDataSource @Inject constructor(
-    private val discoveryService: DiscoveryService
+    private val apiService: ApiService
 ){
-    suspend fun getDiscoveryMovies(page: Int): DiscoveryResponse{
-        return discoveryService.getDiscoveryMovies(page)
+    suspend fun getMovies(page: Int): ServiceResponse{
+        return apiService.getMovies(page)
     }
 }

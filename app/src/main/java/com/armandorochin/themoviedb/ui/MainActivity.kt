@@ -1,4 +1,4 @@
-package com.armandorochin.themoviedb.ui.screens.main
+package com.armandorochin.themoviedb.ui
 
 import android.os.Bundle
 import android.os.Handler
@@ -10,7 +10,7 @@ import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import com.armandorochin.themoviedb.R
 import com.armandorochin.themoviedb.databinding.ActivityMainBinding
-import com.armandorochin.themoviedb.ui.screens.home.HomeFragment
+import com.armandorochin.themoviedb.ui.fragments.home.HomeFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 

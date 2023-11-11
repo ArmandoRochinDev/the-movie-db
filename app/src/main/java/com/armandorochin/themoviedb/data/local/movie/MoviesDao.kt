@@ -16,7 +16,7 @@ interface MoviesDao{
     suspend fun count():Int
 
     @Query("DELETE FROM MovieLocal")
-    suspend fun deleteAllDiscoveryMovies()
+    suspend fun deleteAllMovies()
 
     @Query("SELECT * FROM MovieLocal ORDER BY createdAt DESC LIMIT 1")
     suspend fun getLastCreatedMovie() : MovieLocal
@@ -24,12 +24,13 @@ interface MoviesDao{
     suspend fun getFirstCreatedMovie() : MovieLocal
 
     //Paging
-    @Query("SELECT * FROM MovieLocal ORDER BY popularity DESC")
-    fun getDiscoveryMovies(): PagingSource<Int, MovieLocal>
+    //@Query("SELECT * FROM MovieLocal ORDER BY popularity DESC")
+    @Query("SELECT * FROM MovieLocal")
+    fun getMovies(): PagingSource<Int, MovieLocal>
 
     @Transaction
     suspend fun deleteAllAndInsertTransaction(movies: List<MovieLocal>){
-        deleteAllDiscoveryMovies()
+        deleteAllMovies()
         insertAll(movies)
     }
 

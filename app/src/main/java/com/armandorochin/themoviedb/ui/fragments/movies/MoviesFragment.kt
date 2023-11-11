@@ -1,7 +1,7 @@
-package com.armandorochin.themoviedb.ui.screens.discovery
+package com.armandorochin.themoviedb.ui.fragments.movies
 
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -17,34 +17,33 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.armandorochin.themoviedb.R
-import com.armandorochin.themoviedb.databinding.FragmentDiscoveryMoviesBinding
+import com.armandorochin.themoviedb.databinding.FragmentMoviesBinding
 import com.armandorochin.themoviedb.domain.model.Movie
-import com.armandorochin.themoviedb.ui.calculateNoOfColumns
-import com.armandorochin.themoviedb.ui.screens.about.AboutFragment
-import com.armandorochin.themoviedb.ui.screens.detail.DetailMovieFragment
-import com.armandorochin.themoviedb.ui.screens.main.MainActivity
+import com.armandorochin.themoviedb.ui.fragments.about.AboutFragment
+import com.armandorochin.themoviedb.ui.MainActivity
+import com.armandorochin.themoviedb.ui.fragments.movie.MovieFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class DiscoveryMoviesFragment(private val title:String) : Fragment(), MenuProvider {
+class MoviesFragment : Fragment(), MenuProvider {
 
-    private var _binding:FragmentDiscoveryMoviesBinding? = null
+    private var _binding:FragmentMoviesBinding? = null
     private val binding get() = _binding!!
 
-    private val discoveryViewModel: DiscoveryViewModel by viewModels()
-    private var adapter: DiscoveryAdapter? = null
+    private val moviesViewModel: MoviesViewModel by viewModels()
+    private var adapter: MoviesAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentDiscoveryMoviesBinding.inflate(inflater, container, false)
+        _binding = FragmentMoviesBinding.inflate(inflater, container, false)
 
         setupRecycler()
 
-        setupToolbar()
+        setupToolbar(savedInstanceState)
 
         return binding.root
     }
@@ -53,25 +52,25 @@ class DiscoveryMoviesFragment(private val title:String) : Fragment(), MenuProvid
         super.onDestroyView()
         adapter = null
     }
-    private fun setupToolbar(){
-        (activity as MainActivity).supportActionBar?.title = title
+    private fun setupToolbar(params: Bundle?){
+        (activity as MainActivity).supportActionBar?.title = params?.getString(titleKey) ?: defaultTitle
         (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         (activity as MainActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
     private fun setupRecycler() {
-        adapter = DiscoveryAdapter(-1, false) { onMovieClicked(it) }
-        binding.rvMovies.layoutManager = GridLayoutManager(context, calculateNoOfColumns(requireContext(),180f))
+        adapter = MoviesAdapter(-1, false) { onMovieClicked(it) }
+        binding.rvMovies.layoutManager = GridLayoutManager(context, calculateNoOfColumns(requireContext()))
         binding.rvMovies.adapter = adapter
-        discoveryViewModel.getDiscoveryLiveData().observe(viewLifecycleOwner){ movies ->
+        moviesViewModel.getMoviesLiveData().observe(viewLifecycleOwner){ movies ->
             viewLifecycleOwner.lifecycleScope.launch{
                 adapter?.submitData(movies)
             }
         }
     }
     private fun onMovieClicked(movie: Movie){
-        (activity as MainActivity).addFragmentToBackstack(DetailMovieFragment(movie.movieId))
+        (activity as MainActivity).addFragmentToBackstack(MovieFragment(movie.movieId))
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -94,5 +93,19 @@ class DiscoveryMoviesFragment(private val title:String) : Fragment(), MenuProvid
             }
             else -> false
         }
+    }
+
+    private fun calculateNoOfColumns(
+        context: Context
+    ): Int {
+        val columnWidthDp = 180f// For example columnWidthdp=180
+        val displayMetrics = context.resources.displayMetrics
+        val screenWidthDp = displayMetrics.widthPixels / displayMetrics.density
+        return (screenWidthDp / columnWidthDp + 0.5).toInt() // +0.5 for correct rounding to int.
+    }
+
+    companion object{
+        const val titleKey = "title"
+        private const val defaultTitle = "Películas"
     }
 }

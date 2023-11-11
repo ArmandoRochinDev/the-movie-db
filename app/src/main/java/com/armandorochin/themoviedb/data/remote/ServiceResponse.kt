@@ -2,7 +2,7 @@ package com.armandorochin.themoviedb.data.remote
 
 import com.google.gson.annotations.SerializedName
 
-data class DiscoveryResponse(
+data class ServiceResponse(
     val page: Int,
     @SerializedName("results")
     val movies: List<MovieDto>,

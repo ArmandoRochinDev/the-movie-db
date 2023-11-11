@@ -1,6 +1,5 @@
 package com.armandorochin.themoviedb.domain.model
 
-import com.armandorochin.themoviedb.data.local.movie.MovieLocal
 import java.util.Date
 
 data class Movie(
@@ -21,24 +20,4 @@ data class Movie(
     val voteCount: Int,
     var page: Int,
     var createdAt: Date
-)
-
-fun Movie.toMovieLocal() = MovieLocal(
-    uid,
-    adult,
-    backdropPath,
-    genreIds,
-    movieId,
-    originalLanguage,
-    originalTitle,
-    overview,
-    popularity,
-    posterPath,
-    releaseDate,
-    title,
-    video,
-    voteAverage,
-    voteCount,
-    page,
-    createdAt
 )

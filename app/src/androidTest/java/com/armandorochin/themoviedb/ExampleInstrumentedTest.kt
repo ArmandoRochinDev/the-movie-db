@@ -7,9 +7,8 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
-import com.armandorochin.themoviedb.ui.screens.discovery.DiscoveryMovieViewHolder
-import com.armandorochin.themoviedb.ui.screens.discovery.DiscoveryMoviesFragment
-import com.armandorochin.themoviedb.ui.screens.main.MainActivity
+import com.armandorochin.themoviedb.ui.fragments.movies.MovieViewHolder
+import com.armandorochin.themoviedb.ui.MainActivity
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
@@ -39,6 +38,6 @@ class ExampleInstrumentedTest {
         val count = rv.adapter?.itemCount ?: 19
 
         Espresso.onView(withId(R.id.rvMovies))
-            .perform(RecyclerViewActions.scrollToPosition<DiscoveryMovieViewHolder>(count))
+            .perform(RecyclerViewActions.scrollToPosition<MovieViewHolder>(count))
     }
 }

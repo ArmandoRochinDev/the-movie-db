@@ -5,10 +5,10 @@ import com.armandorochin.themoviedb.data.MoviesRepository
 import com.armandorochin.themoviedb.domain.model.Movie
 import javax.inject.Inject
 
-class RequestDiscoveryMovie @Inject constructor(
+class RequestMovie @Inject constructor(
     private val repository: MoviesRepository
 ) {
     operator fun invoke(movieId: Int): LiveData<Movie> {
-        return repository.getDiscoveryMovie(movieId)
+        return repository.getMovie(movieId)
     }
 }

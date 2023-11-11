@@ -4,16 +4,14 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
+import com.armandorochin.themoviedb.data.MoviesRepository.Companion.PAGE_LIMIT
+import com.armandorochin.themoviedb.data.MoviesRepository.Companion.TMDB_STARTING_PAGE_INDEX
 import com.armandorochin.themoviedb.data.local.LocalDataSource
 import com.armandorochin.themoviedb.data.local.movie.MovieLocal
 import retrofit2.HttpException
 import java.io.IOException
-
-private const val TMDB_STARTING_PAGE_INDEX = 1
-private const val PAGE_LIMIT = 40764
-
 @OptIn(ExperimentalPagingApi::class)
-class DiscoveryMediator(
+class MoviesMediator(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource
 ) : RemoteMediator<Int, MovieLocal>() {
@@ -53,7 +51,7 @@ class DiscoveryMediator(
             }
         }
         try {
-            val apiResponse = remoteDataSource.getDiscoveryMovies(pageIndex)
+            val apiResponse = remoteDataSource.getMovies(pageIndex)
             val movies: List<MovieDto> = apiResponse.movies
 
             val endOfPaginationReached = (apiResponse.page == PAGE_LIMIT)

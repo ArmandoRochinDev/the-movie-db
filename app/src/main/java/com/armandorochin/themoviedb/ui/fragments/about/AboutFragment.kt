@@ -1,10 +1,9 @@
-package com.armandorochin.themoviedb.ui.screens.about
+package com.armandorochin.themoviedb.ui.fragments.about
 
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -18,7 +17,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import com.armandorochin.themoviedb.R
 import com.armandorochin.themoviedb.databinding.FragmentAboutBinding
-import com.armandorochin.themoviedb.ui.screens.main.MainActivity
+import com.armandorochin.themoviedb.ui.MainActivity
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -51,11 +50,11 @@ class AboutFragment : Fragment(), MenuProvider {
     }
 
     private fun setupUI() {
-        Glide.with(binding.profilePicture.context).load("https://avatars.githubusercontent.com/u/88679335?v=4").into(binding.profilePicture)
+        Glide.with(binding.profilePicture.context).load(profilePicturePath).into(binding.profilePicture)
 
-        binding.ivGoogleplay.setOnClickListener { openUrl("https://play.google.com/store/apps/dev?id=4832117956294238601") }
-        binding.ivGithub.setOnClickListener { openUrl("https://github.com/ArmandoRochinDev") }
-        binding.ivCv.setOnClickListener { openUrl("https://github.com/ArmandoRochinDev/ArmandoRochinDev/blob/main/CV2023.pdf") }
+        binding.ivGoogleplay.setOnClickListener { openUrl(googlePlayDevUrl) }
+        binding.ivGithub.setOnClickListener { openUrl(githubProfileUrl) }
+        binding.ivCv.setOnClickListener { openUrl(cvPdfUrl) }
 
         binding.tvAboutDescription.movementMethod = LinkMovementMethod.getInstance()
     }
@@ -85,5 +84,12 @@ class AboutFragment : Fragment(), MenuProvider {
             }
             else -> false
         }
+    }
+
+    companion object{
+        const val profilePicturePath = "https://avatars.githubusercontent.com/u/88679335?v=4"
+        const val googlePlayDevUrl = "https://play.google.com/store/apps/dev?id=4832117956294238601"
+        const val githubProfileUrl = "https://github.com/ArmandoRochinDev"
+        const val cvPdfUrl = "https://github.com/ArmandoRochinDev/ArmandoRochinDev/blob/main/CV2023.pdf"
     }
 }

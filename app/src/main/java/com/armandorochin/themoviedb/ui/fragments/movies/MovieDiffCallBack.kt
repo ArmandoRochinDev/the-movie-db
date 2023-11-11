@@ -1,4 +1,4 @@
-package com.armandorochin.themoviedb.ui.screens.discovery
+package com.armandorochin.themoviedb.ui.fragments.movies
 
 import androidx.recyclerview.widget.DiffUtil
 import com.armandorochin.themoviedb.domain.model.Movie

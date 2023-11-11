@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:background="@color/md_theme_light_primary"
-    android:elevation="4dp"
+    android:elevation="@dimen/z_app_bar"
     app:titleTextColor="@color/white"
     android:theme="@style/Base.Theme.TheMovieDB"
     app:popupTheme="@style/Base.Theme.TheMovieDB"/>
-    <!-- app:popupTheme="@style/ThemeOverlay.AppCompat.Light" -->

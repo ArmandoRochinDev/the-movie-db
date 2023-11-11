@@ -1,8 +1,6 @@
-package com.armandorochin.themoviedb.ui.screens.home
+package com.armandorochin.themoviedb.ui.fragments.home
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -20,11 +18,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.armandorochin.themoviedb.R
 import com.armandorochin.themoviedb.databinding.FragmentHomeBinding
 import com.armandorochin.themoviedb.domain.model.Movie
-import com.armandorochin.themoviedb.ui.screens.about.AboutFragment
-import com.armandorochin.themoviedb.ui.screens.detail.DetailMovieFragment
-import com.armandorochin.themoviedb.ui.screens.discovery.DiscoveryAdapter
-import com.armandorochin.themoviedb.ui.screens.discovery.DiscoveryMoviesFragment
-import com.armandorochin.themoviedb.ui.screens.main.MainActivity
+import com.armandorochin.themoviedb.ui.fragments.about.AboutFragment
+import com.armandorochin.themoviedb.ui.fragments.movie.MovieFragment
+import com.armandorochin.themoviedb.ui.fragments.movies.MoviesAdapter
+import com.armandorochin.themoviedb.ui.fragments.movies.MoviesFragment
+import com.armandorochin.themoviedb.ui.MainActivity
+import com.armandorochin.themoviedb.ui.fragments.movies.MoviesFragment.Companion.titleKey
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -34,8 +33,8 @@ class HomeFragment: Fragment(), MenuProvider {
     private val binding get() = _binding!!
 
     private val homeViewModel: HomeViewModel by viewModels()
-    private var bigAdapter = DiscoveryAdapter(680, true) { onMovieClicked(it) }
-    private var smallAdapter = DiscoveryAdapter(360, false) { onMovieClicked(it) }
+    private var bigAdapter = MoviesAdapter(680, true) { onMovieClicked(it) }
+    private var smallAdapter = MoviesAdapter(360, false) { onMovieClicked(it) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,11 +52,11 @@ class HomeFragment: Fragment(), MenuProvider {
         return binding.root
     }
 
-    private fun setupRecycler(rv:RecyclerView, _adapter: DiscoveryAdapter?) {
+    private fun setupRecycler(rv:RecyclerView, _adapter: MoviesAdapter?) {
         rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         rv.adapter = _adapter
 
-        homeViewModel.getDiscoveryLiveData().observe(viewLifecycleOwner){ movies ->
+        homeViewModel.getMoviesLiveData().observe(viewLifecycleOwner){ movies ->
             viewLifecycleOwner.lifecycleScope.launch{
                 _adapter?.submitData(movies)
             }
@@ -68,17 +67,26 @@ class HomeFragment: Fragment(), MenuProvider {
         (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
         (activity as MainActivity).supportActionBar?.setDisplayShowHomeEnabled(false)
 
-        binding.tvDiscoveryMore.setOnClickListener { (activity as MainActivity).addFragmentToBackstack(DiscoveryMoviesFragment( getString(R.string.discover) ))}
-        binding.tvNowplayingMore.setOnClickListener { (activity as MainActivity).addFragmentToBackstack(DiscoveryMoviesFragment(getString(R.string.nowplaying)))}
-        binding.tvTopMore.setOnClickListener { (activity as MainActivity).addFragmentToBackstack(DiscoveryMoviesFragment(getString(R.string.toprated)))}
-        binding.tvPopularMore.setOnClickListener { (activity as MainActivity).addFragmentToBackstack(DiscoveryMoviesFragment(getString(R.string.popular)))}
+        binding.tvDiscoveryMore.setOnClickListener { listenerConfiguration(getString(R.string.discover)) }
+        binding.tvNowplayingMore.setOnClickListener { listenerConfiguration(getString(R.string.nowplaying)) }
+        binding.tvTopMore.setOnClickListener { listenerConfiguration(getString(R.string.toprated)) }
+        binding.tvPopularMore.setOnClickListener { listenerConfiguration(getString(R.string.popular)) }
 
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
+    private fun listenerConfiguration(title:String){
+        var args = Bundle()
+        var fragment = MoviesFragment()
+
+        args.putString(titleKey, title)
+        fragment.arguments = args
+        (activity as MainActivity).addFragmentToBackstack( fragment )
+    }
+
     private fun onMovieClicked(movie: Movie){
-        (activity as MainActivity).addFragmentToBackstack(DetailMovieFragment(movie.movieId))
+        (activity as MainActivity).addFragmentToBackstack(MovieFragment(movie.movieId))
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -91,10 +99,6 @@ class HomeFragment: Fragment(), MenuProvider {
                 (activity as MainActivity).addFragmentToBackstack(AboutFragment())
                 true
             }
-//            android.R.id.home -> {
-//                Log.d("menu-home", "este si carajo!!!!")
-//                true
-//            }
             else -> false
         }
     }

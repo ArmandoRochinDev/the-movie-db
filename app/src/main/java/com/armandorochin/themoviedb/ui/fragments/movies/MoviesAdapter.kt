@@ -1,4 +1,4 @@
-package com.armandorochin.themoviedb.ui.screens.discovery
+package com.armandorochin.themoviedb.ui.fragments.movies
 
 import android.graphics.Bitmap
 import android.view.LayoutInflater
@@ -16,17 +16,17 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.BitmapImageViewTarget
 import com.bumptech.glide.request.transition.Transition
 
-class DiscoveryAdapter(
+class MoviesAdapter(
     private val widthItem:Int,
     private val useBackdropImage:Boolean,
     private val onClickListener:(Movie) -> Unit
-) : PagingDataAdapter<Movie, DiscoveryMovieViewHolder>(MovieDiffCallBack()){
-    override fun onBindViewHolder(holder: DiscoveryMovieViewHolder, position: Int) {
+) : PagingDataAdapter<Movie, MovieViewHolder>(MovieDiffCallBack()){
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         holder.bind(getItem(position), onClickListener)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DiscoveryMovieViewHolder {
-        return DiscoveryMovieViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
+        return MovieViewHolder(
             widthItem,
             useBackdropImage,
             ItemMovieBinding.inflate(
@@ -36,7 +36,7 @@ class DiscoveryAdapter(
     }
 }
 
-class DiscoveryMovieViewHolder(
+class MovieViewHolder(
     private val widthItem:Int,
     private val useBackdropImage:Boolean,
     private val binding: ItemMovieBinding

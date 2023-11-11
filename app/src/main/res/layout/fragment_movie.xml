@@ -2,7 +2,7 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.screens.main.MainActivity"
+    tools:context=".ui.MainActivity"
     android:layout_height="match_parent"
     android:layout_width="match_parent">
 
@@ -13,7 +13,7 @@
         <ImageView
             android:id="@+id/details_backdrop"
             android:layout_width="match_parent"
-            android:layout_height="340dp"
+            android:layout_height="@dimen/backdrop_height"
             android:scaleType="centerCrop"
             tools:ignore="ContentDescription"
             app:layout_constraintTop_toTopOf="parent"
@@ -23,9 +23,9 @@
 
         <ImageView
             android:id="@+id/details_poster"
-            android:layout_width="160dp"
-            android:layout_height="220dp"
-            android:layout_marginTop="260dp"
+            android:layout_width="@dimen/poster_width"
+            android:layout_height="@dimen/poster_height"
+            android:layout_marginTop="@dimen/poster_margin"
             android:layout_marginStart="@dimen/padding_normal"
             android:scaleType="centerCrop"
             app:layout_constraintTop_toTopOf="parent"
@@ -47,7 +47,7 @@
 
         <TextView
             android:id="@+id/details_release_date"
-            style="@style/TmdbMargin.Small"
+            style="@style/ThemoviedbMargin.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_normal"
@@ -57,7 +57,7 @@
 
         <TextView
             android:id="@+id/details_vote_average"
-            style="@style/TmdbMargin.Small"
+            style="@style/ThemoviedbMargin.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
@@ -66,7 +66,7 @@
 
         <TextView
             android:id="@+id/summary_label"
-            style="@style/TmdbMargin.Title"
+            style="@style/ThemoviedbMargin.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/summary"
@@ -75,7 +75,7 @@
 
         <TextView
             android:id="@+id/summary"
-            style="@style/TmdbMargin.Body"
+            style="@style/ThemoviedbMargin.Body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/padding_normal"
@@ -87,7 +87,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/cat_title_height"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/summary"/>
