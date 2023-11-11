@@ -17,6 +17,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.armandorochin.themoviedb.R
+import com.armandorochin.themoviedb.data.remote.RemoteMediator.Companion.CAT_DISCOVER
 import com.armandorochin.themoviedb.databinding.FragmentMoviesBinding
 import com.armandorochin.themoviedb.domain.model.Movie
 import com.armandorochin.themoviedb.ui.fragments.about.AboutFragment
@@ -41,9 +42,9 @@ class MoviesFragment : Fragment(), MenuProvider {
     ): View {
         _binding = FragmentMoviesBinding.inflate(inflater, container, false)
 
-        setupRecycler()
+        setupRecycler(requireArguments())
 
-        setupToolbar(savedInstanceState)
+        setupToolbar(requireArguments())
 
         return binding.root
     }
@@ -59,11 +60,14 @@ class MoviesFragment : Fragment(), MenuProvider {
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
-    private fun setupRecycler() {
+    private fun setupRecycler(params: Bundle) {
+        val category = params.getString(categoryKey)
+
         adapter = MoviesAdapter(-1, false) { onMovieClicked(it) }
         binding.rvMovies.layoutManager = GridLayoutManager(context, calculateNoOfColumns(requireContext()))
         binding.rvMovies.adapter = adapter
-        moviesViewModel.getMoviesLiveData().observe(viewLifecycleOwner){ movies ->
+
+        moviesViewModel.getMoviesLiveData(category!!).observe(viewLifecycleOwner){ movies ->
             viewLifecycleOwner.lifecycleScope.launch{
                 adapter?.submitData(movies)
             }
@@ -106,6 +110,7 @@ class MoviesFragment : Fragment(), MenuProvider {
 
     companion object{
         const val titleKey = "title"
+        const val categoryKey = "category"
         private const val defaultTitle = "Películas"
     }
 }

@@ -17,14 +17,15 @@ data class MovieLocal(
     val originalTitle: String,
     val overview: String,
     val popularity: Double,
-    val posterPath: String,
+    val posterPath: String?,
     val releaseDate: String?,
     val title: String,
     val video: Boolean,
     val voteAverage: Double,
     val voteCount: Int,
     var page: Int,
-    var createdAt: Date
+    var createdAt: Date,
+    var category: String
 )
 
 fun MovieLocal.toMovie() = Movie(

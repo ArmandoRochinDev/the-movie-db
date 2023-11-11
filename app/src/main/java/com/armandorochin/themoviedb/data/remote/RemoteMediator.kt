@@ -1,5 +1,6 @@
 package com.armandorochin.themoviedb.data.remote
 
+import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -11,9 +12,10 @@ import com.armandorochin.themoviedb.data.local.movie.MovieLocal
 import retrofit2.HttpException
 import java.io.IOException
 @OptIn(ExperimentalPagingApi::class)
-class MoviesMediator(
+class RemoteMediator(
     private val localDataSource: LocalDataSource,
-    private val remoteDataSource: RemoteDataSource
+    private val remoteDataSource: RemoteDataSource,
+    private val category: String
 ) : RemoteMediator<Int, MovieLocal>() {
 
     override suspend fun initialize(): InitializeAction {
@@ -50,40 +52,69 @@ class MoviesMediator(
                 nextKey
             }
         }
-        try {
-            val apiResponse = remoteDataSource.getMovies(pageIndex)
-            val movies: List<MovieDto> = apiResponse.movies
+        return try {
+            val apiResponse = fetchDataFromServer(pageIndex)
 
             val endOfPaginationReached = (apiResponse.page == PAGE_LIMIT)
 
-            if(LoadType.valueOf(loadType.name) == LoadType.REFRESH && apiResponse.page == 1){
-                localDataSource.insertAndDeleteTransaction(movies.map{it.toMovieLocal(apiResponse.page)})
-            }else{
-                localDataSource.insertAll(movies.map { it.toMovieLocal(apiResponse.page) })
+            saveDataIntoLocalDb(loadType, apiResponse)
+
+            MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
+        } catch (exception: IOException) {
+            MediatorResult.Error(exception)
+        } catch (exception: HttpException) {
+            MediatorResult.Error(exception)
+        }
+    }
+
+    private suspend fun saveDataIntoLocalDb(loadType: LoadType, apiResponse: ServiceResponse) {
+        if(LoadType.valueOf(loadType.name) == LoadType.REFRESH && apiResponse.page == 1){
+            localDataSource.insertAndDeleteTransaction(apiResponse.movies.map{it.toMovieLocal(apiResponse.page, category)}, category)
+        }else{
+            localDataSource.insertAll(apiResponse.movies.map { it.toMovieLocal(apiResponse.page, category) })
+        }
+    }
+
+    private suspend fun fetchDataFromServer(pageIndex: Int) : ServiceResponse {
+        return when(category){
+            CAT_DISCOVER -> {
+                remoteDataSource.getMoviesDiscover(pageIndex)
+            }
+            CAT_NOW_PLAYING -> {
+                remoteDataSource.getMoviesNowPlaying(pageIndex)
+            }
+            CAT_TOP_RATED -> {
+                remoteDataSource.getMoviesTopRated(pageIndex)
+            }
+            CAT_UPCOMING -> {
+                remoteDataSource.getMoviesUpcoming(pageIndex)
             }
 
-            return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
-        } catch (exception: IOException) {
-            return MediatorResult.Error(exception)
-        } catch (exception: HttpException) {
-            return MediatorResult.Error(exception)
+            else -> {remoteDataSource.getMoviesDiscover(pageIndex)}
         }
     }
 
     private suspend fun getRefreshKey():Int{
-        val currentPage: Int = localDataSource.count() / 20
+        val currentPage: Int = localDataSource.count(category) / 20
         return if(currentPage == 0) TMDB_STARTING_PAGE_INDEX else currentPage + 1
     }
 
     private suspend fun getNextKey():Int{
-        val lastMovie = localDataSource.getLastCreatedMovie()
+        val lastMovie = localDataSource.getLastCreatedMovie(category)
 
 
         return lastMovie.page + 1
     }
     private suspend fun getPrevKey():Int{
-        val lastMovie = localDataSource.getFirstCreatedMovie()
+        val lastMovie = localDataSource.getFirstCreatedMovie(category)
 
         return lastMovie.page - 1
+    }
+
+    companion object{
+        const val CAT_DISCOVER = "DISCOVER"
+        const val CAT_NOW_PLAYING = "NOW_PLAYING"
+        const val CAT_TOP_RATED = "TOP_RATED"
+        const val CAT_UPCOMING = "UPCOMING"
     }
 }

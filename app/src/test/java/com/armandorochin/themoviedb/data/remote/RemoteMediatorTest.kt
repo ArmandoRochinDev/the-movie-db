@@ -9,6 +9,7 @@ import com.armandorochin.themoviedb.data.local.LocalDataSource
 import com.armandorochin.themoviedb.data.local.TmdbDatabase
 import com.armandorochin.themoviedb.data.local.movie.MovieLocal
 import com.armandorochin.themoviedb.data.local.movie.MoviesDao
+import com.armandorochin.themoviedb.data.remote.RemoteMediator.Companion.CAT_DISCOVER
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -23,7 +24,7 @@ import java.util.Date
 
 
 @RunWith(RobolectricTestRunner::class)
-class MoviesMediatorTest{
+class RemoteMediatorTest{
     private lateinit var moviesDao: MoviesDao
     private lateinit var db: TmdbDatabase
     @RelaxedMockK
@@ -47,11 +48,11 @@ class MoviesMediatorTest{
     @Test
     fun `when load type is refresh and page is one delete and insert movies`() = runBlocking {
         //Given
-        coEvery { localDataSource.count() } returns 0
-        coEvery { remoteDataSource.getDiscoveryMovies(1) } returns ServiceResponse(movies = emptyList(), page = 1, totalResults = 0, totalPages = 0)
+        coEvery { localDataSource.count(CAT_DISCOVER) } returns 0
+        coEvery { remoteDataSource.getMoviesDiscover(1) } returns ServiceResponse(movies = emptyList(), page = 1, totalResults = 0, totalPages = 0)
         val pagingState = mockk<PagingState<Int,  MovieLocal>>()
-        val mediator = MoviesMediator(localDataSource, remoteDataSource)
-        val response = remoteDataSource.getDiscoveryMovies(1)
+        val mediator = RemoteMediator(localDataSource, remoteDataSource, CAT_DISCOVER)
+        val response = remoteDataSource.getMoviesDiscover(1)
 
 
         //When
@@ -59,7 +60,7 @@ class MoviesMediatorTest{
 
         //Then
         coVerify {
-            localDataSource.insertAndDeleteTransaction(response.movies.map { it.toMovieLocal(response.page) })
+            localDataSource.insertAndDeleteTransaction(response.movies.map { it.toMovieLocal(response.page, CAT_DISCOVER) }, CAT_DISCOVER)
         }
     }
 
@@ -67,11 +68,11 @@ class MoviesMediatorTest{
     @Test
     fun `when load type is append and page is not one insert movies`() = runBlocking {
         //Given
-        coEvery { localDataSource.getLastCreatedMovie() } returns MovieLocal(uid = 1, adult = false, backdropPath = "", genreIds = emptyList(), movieId = 1, originalLanguage = "", originalTitle = "", overview = "", popularity = 1.0, posterPath = "", releaseDate = "", title = "", video = false, voteAverage = 1.0, voteCount = 1, page = 2, createdAt = Date() )
-        coEvery { remoteDataSource.getDiscoveryMovies(1) } returns ServiceResponse(movies = emptyList(), page = 2, totalResults = 0, totalPages = 0)
+        coEvery { localDataSource.getLastCreatedMovie(CAT_DISCOVER) } returns MovieLocal(uid = 1, adult = false, backdropPath = "", genreIds = emptyList(), movieId = 1, originalLanguage = "", originalTitle = "", overview = "", popularity = 1.0, posterPath = "", releaseDate = "", title = "", video = false, voteAverage = 1.0, voteCount = 1, page = 2, createdAt = Date(), category = CAT_DISCOVER )
+        coEvery { remoteDataSource.getMoviesDiscover(1) } returns ServiceResponse(movies = emptyList(), page = 2, totalResults = 0, totalPages = 0)
         val pagingState = mockk<PagingState<Int,  MovieLocal>>()
-        val mediator = MoviesMediator(localDataSource, remoteDataSource)
-        val response = remoteDataSource.getDiscoveryMovies(1)
+        val mediator = RemoteMediator(localDataSource, remoteDataSource, CAT_DISCOVER)
+        val response = remoteDataSource.getMoviesDiscover(1)
 
 
         //When
@@ -79,7 +80,7 @@ class MoviesMediatorTest{
 
         //Then
         coVerify {
-            localDataSource.insertAll(response.movies.map { it.toMovieLocal(response.page) })
+            localDataSource.insertAll(response.movies.map { it.toMovieLocal(response.page, CAT_DISCOVER) })
         }
     }
 }

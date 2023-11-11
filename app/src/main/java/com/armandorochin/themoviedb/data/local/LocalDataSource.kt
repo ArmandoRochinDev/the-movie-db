@@ -14,26 +14,26 @@ class LocalDataSource @Inject constructor(
         dao.insertAll(movies)
     }
 
-    suspend fun count(): Int{
-        return dao.count()
+    suspend fun count(category: String): Int{
+        return dao.count(category)
     }
 
-    fun getMovies(): PagingSource<Int, MovieLocal>{
-        return dao.getMovies()
+    fun getMovies(category: String): PagingSource<Int, MovieLocal>{
+        return dao.getMovies(category)
     }
 
     fun getMovie(movieId:Int): LiveData<MovieLocal>{
         return dao.getMovie(movieId)
     }
 
-    suspend fun getLastCreatedMovie():MovieLocal{
-        return dao.getLastCreatedMovie()
+    suspend fun getLastCreatedMovie(category: String):MovieLocal{
+        return dao.getLastCreatedMovie(category)
     }
-    suspend fun getFirstCreatedMovie():MovieLocal{
-        return dao.getFirstCreatedMovie()
+    suspend fun getFirstCreatedMovie(category: String):MovieLocal{
+        return dao.getFirstCreatedMovie(category)
     }
 
-    suspend fun insertAndDeleteTransaction(movies: List<MovieLocal>){
-        dao.deleteAllAndInsertTransaction(movies)
+    suspend fun insertAndDeleteTransaction(movies: List<MovieLocal>, category: String){
+        dao.deleteAllAndInsertTransaction(movies, category)
     }
 }

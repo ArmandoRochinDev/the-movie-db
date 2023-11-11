@@ -12,7 +12,7 @@
     <string name="discover">Descubrir</string>
     <string name="nowplaying">En Cartelera</string>
     <string name="toprated">Más Valoradas</string>
-    <string name="popular">Popular</string>
+    <string name="popular">Próximos estrenos</string>
     <string name="detail">Detalle</string>
     <string name="about_title">Acerca De</string>
     <string name="about">Aplicacion de ejemplo para mostrar la implementacion de Kotlin, MVVM, Clean Architecture, Paginación, Dagger Hilt, Corutinas, Room database, Retrofit, databinding, livedata, material design, animaciones, espresso y test unitarios.\n\nPuedes encontrar el codigo fuente en mi cuenta de github, haciendo click en el boton de arriba.\n\n<a href="https://www.app-privacy-policy.com/live.php?token=nu48uNjNyw3VgZvEm4Nvce2uj3QRStZj">Politica de privacidad</a></string>

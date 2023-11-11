@@ -20,9 +20,9 @@ data class MovieDto (
     val overview: String,
     val popularity: Double,
     @SerializedName("poster_path")
-    val posterPath: String,
+    val posterPath: String?,
     @SerializedName("release_date")
-    val releaseDate: String,
+    val releaseDate: String?,
     val title: String,
     val video: Boolean,
     @SerializedName("vote_average")
@@ -33,7 +33,7 @@ data class MovieDto (
     var createdAt: Date
 )
 
-fun MovieDto.toMovieLocal(pageIndex: Int) = MovieLocal(
+fun MovieDto.toMovieLocal(pageIndex: Int, category: String) = MovieLocal(
     null,
     adult,
     backdropPath,
@@ -50,5 +50,6 @@ fun MovieDto.toMovieLocal(pageIndex: Int) = MovieLocal(
     voteAverage,
     voteCount,
     pageIndex,
-    Date()
+    Date(),
+    category
 )
