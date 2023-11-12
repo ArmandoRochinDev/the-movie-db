@@ -1,6 +1,5 @@
 package com.armandorochin.themoviedb.data
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import androidx.paging.ExperimentalPagingApi
@@ -10,11 +9,10 @@ import androidx.paging.PagingData
 import androidx.paging.liveData
 import androidx.paging.map
 import com.armandorochin.themoviedb.data.local.LocalDataSource
-import com.armandorochin.themoviedb.data.local.movie.MovieLocal
 import com.armandorochin.themoviedb.data.local.movie.toMovie
+import com.armandorochin.themoviedb.data.remote.RemoteDataSource
 import com.armandorochin.themoviedb.data.remote.RemoteMediator
 import com.armandorochin.themoviedb.data.remote.RemoteMediator.Companion.CAT_DISCOVER
-import com.armandorochin.themoviedb.data.remote.RemoteDataSource
 import com.armandorochin.themoviedb.data.remote.RemoteMediator.Companion.CAT_NOW_PLAYING
 import com.armandorochin.themoviedb.data.remote.RemoteMediator.Companion.CAT_TOP_RATED
 import com.armandorochin.themoviedb.data.remote.RemoteMediator.Companion.CAT_UPCOMING
@@ -65,7 +63,7 @@ class MoviesRepository @Inject constructor(
         var pager = _pager
         return if(pager == null){
             pager = Pager(
-                config = PagingConfig(pageSize = NETWORK_PAGE_SIZE, enablePlaceholders = false, initialLoadSize = NETWORK_PAGE_SIZE),
+                config = PagingConfig(pageSize = NETWORK_PAGE_SIZE, enablePlaceholders = false, initialLoadSize = NETWORK_PAGE_SIZE * 3),
                 remoteMediator = RemoteMediator(localDataSource, remoteDataSource, category),
                 pagingSourceFactory = { localDataSource.getMovies(category) }
             ).liveData.map { pagingData ->  pagingData.map { it.toMovie() }}
