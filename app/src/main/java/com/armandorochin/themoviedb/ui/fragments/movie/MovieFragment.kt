@@ -11,13 +11,14 @@ import com.armandorochin.themoviedb.databinding.FragmentMovieBinding
 import com.armandorochin.themoviedb.di.NetworkModule
 import com.armandorochin.themoviedb.domain.model.Movie
 import com.armandorochin.themoviedb.ui.MainActivity
+import com.armandorochin.themoviedb.ui.fragments.movies.MoviesFragment
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
 @AndroidEntryPoint
-class MovieFragment(private val movieId:Int) : Fragment() {
+class MovieFragment() : Fragment() {
     private var _binding:FragmentMovieBinding? = null
     private val binding get() = _binding!!
 
@@ -29,14 +30,17 @@ class MovieFragment(private val movieId:Int) : Fragment() {
     ): View {
         _binding = FragmentMovieBinding.inflate(inflater, container, false)
 
-        discoveryMovieViewModel.initViewModel(movieId)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        discoveryMovieViewModel.initViewModel(requireArguments().getInt(MovieFragment.movieKey) ?: defaultMovie)
         discoveryMovieViewModel.getMovieLiveData().observe(viewLifecycleOwner){ movie ->
             setupUI(movie)
         }
 
         (activity as MainActivity).supportActionBar?.hide()
-
-        return binding.root
     }
 
     private fun setupUI(movie: Movie) {
@@ -62,5 +66,10 @@ class MovieFragment(private val movieId:Int) : Fragment() {
         val df = DecimalFormat("#.#")
         df.roundingMode = RoundingMode.HALF_UP
         return df.format(number).toDouble()
+    }
+
+    companion object{
+        const val movieKey = "movie"
+        const val defaultMovie = 1
     }
 }

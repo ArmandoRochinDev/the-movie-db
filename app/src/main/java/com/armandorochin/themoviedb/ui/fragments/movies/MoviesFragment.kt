@@ -16,12 +16,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import com.armandorochin.themoviedb.R
 import com.armandorochin.themoviedb.databinding.FragmentMoviesBinding
 import com.armandorochin.themoviedb.domain.model.Movie
 import com.armandorochin.themoviedb.ui.MainActivity
-import com.armandorochin.themoviedb.ui.fragments.about.AboutFragment
 import com.armandorochin.themoviedb.ui.fragments.movie.MovieFragment
+import com.armandorochin.themoviedb.ui.fragments.movie.MovieFragment.Companion.movieKey
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -35,15 +34,17 @@ class MoviesFragment : Fragment(), MenuProvider {
     private val moviesViewModel: MoviesViewModel by viewModels()
     private var adapter: MoviesAdapter? = null
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupRecycler(requireArguments())
+        setupToolbar(requireArguments())
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMoviesBinding.inflate(inflater, container, false)
-
-        setupRecycler(requireArguments())
-
-        setupToolbar(requireArguments())
 
         return binding.root
     }
@@ -80,7 +81,13 @@ class MoviesFragment : Fragment(), MenuProvider {
         }
     }
     private fun onMovieClicked(movie: Movie){
-        (activity as MainActivity).addFragmentToBackstack(MovieFragment(movie.movieId))
+        val args = Bundle()
+        val fragment = MovieFragment()
+
+        args.putInt(movieKey, movie.movieId)
+        fragment.arguments = args
+
+        (activity as MainActivity).addFragmentToBackstack(fragment)
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {    }

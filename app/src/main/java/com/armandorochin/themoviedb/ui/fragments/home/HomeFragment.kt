@@ -101,7 +101,13 @@ class HomeFragment: Fragment(), MenuProvider {
     }
 
     private fun onMovieClicked(movie: Movie){
-        (activity as MainActivity).addFragmentToBackstack(MovieFragment(movie.movieId))
+        val args = Bundle()
+        val fragment = MovieFragment()
+
+        args.putInt(MovieFragment.movieKey, movie.movieId)
+        fragment.arguments = args
+
+        (activity as MainActivity).addFragmentToBackstack(fragment)
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
