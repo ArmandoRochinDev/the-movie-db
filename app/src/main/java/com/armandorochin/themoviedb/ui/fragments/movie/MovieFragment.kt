@@ -10,8 +10,6 @@ import androidx.fragment.app.viewModels
 import com.armandorochin.themoviedb.databinding.FragmentMovieBinding
 import com.armandorochin.themoviedb.di.NetworkModule
 import com.armandorochin.themoviedb.domain.model.Movie
-import com.armandorochin.themoviedb.ui.MainActivity
-import com.armandorochin.themoviedb.ui.fragments.movies.MoviesFragment
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.RoundingMode
@@ -39,28 +37,25 @@ class MovieFragment() : Fragment() {
         discoveryMovieViewModel.getMovieLiveData().observe(viewLifecycleOwner){ movie ->
             setupUI(movie)
         }
-
-        (activity as MainActivity).supportActionBar?.hide()
     }
 
     private fun setupUI(movie: Movie) {
-        binding.detailsTitle.text = movie.title
-        binding.detailsReleaseDate.text = movie.releaseDate
-        binding.detailsVoteAverage.text = roundOffDecimal(movie.voteAverage).toString()
-        binding.detailsOriginalLang.text = movie.originalLanguage
-        binding.summary.text = movie.overview
-        Glide.with(binding.detailsPoster.context).load("${NetworkModule.IMAGEURL_185}${movie.posterPath}").into(binding.detailsPoster)
-        Glide.with(binding.detailsBackdrop.context)
-            .load("${NetworkModule.IMAGEURL_ORIGINAL}${movie.backdropPath}")
-            .into(binding.detailsBackdrop)
-
-        binding.ivNavigationUp.setOnClickListener {
+        binding.detailsToolbar.setNavigationOnClickListener {
             val fm: FragmentManager = parentFragmentManager
 
             if (fm.backStackEntryCount > 0) {
                 fm.popBackStack()
             }
         }
+        binding.detailsTitle.text = movie.title
+        binding.detailsReleaseDate.text = movie.releaseDate
+        binding.detailsVoteAverage.text = roundOffDecimal(movie.voteAverage).toString()
+        binding.detailsOriginalLang.text = movie.originalLanguage
+        binding.summary.text = movie.overview
+        Glide.with(binding.detailsPoster.context).load("${NetworkModule.IMAGEURL_185}${movie.posterPath}").into(binding.ivDetailsPoster)
+        Glide.with(binding.detailsBackdrop.context)
+            .load("${NetworkModule.IMAGEURL_ORIGINAL}${movie.backdropPath}")
+            .into(binding.detailsBackdrop)
     }
     private fun roundOffDecimal(number: Double): Double {
         val df = DecimalFormat("#.#")

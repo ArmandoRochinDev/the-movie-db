@@ -1,157 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.MainActivity"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/details_motion"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_width="match_parent">
-
-        <ImageView
-            android:id="@+id/iv_navigation_up"
-            android:layout_width="?attr/actionBarSize"
-            android:layout_height="?attr/actionBarSize"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:scaleType="center"
-            android:src="@drawable/ic_back"
-            android:contentDescription="@string/app_version"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:focusable="true"
-            android:elevation="@dimen/z_app_bar"/>
+        app:layoutDescription="@xml/scene_show_details">
 
         <ImageView
             android:id="@+id/details_backdrop"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/backdrop_height"
-            tools:background="@color/black_translucent_60"
-            tools:ignore="ContentDescription"
-            android:scaleType="fitXY"
-            android:adjustViewBounds="true"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBaseline_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            tools:ignore="ContentDescription" />
+
+        <View
+            android:id="@+id/details_backdrop_scrim"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/details_backdrop"
+            app:layout_constraintEnd_toEndOf="@id/details_backdrop"
+            app:layout_constraintStart_toStartOf="@id/details_backdrop"
+            app:layout_constraintTop_toTopOf="@id/details_backdrop" />
+
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/card_details_poster"
-            android:layout_width="@dimen/poster_width"
-            android:layout_height="@dimen/poster_height"
-            android:layout_marginTop="@dimen/poster_margin"
-            android:layout_marginStart="@dimen/padding_normal"
-            app:cardCornerRadius="@dimen/card_radius"
-            app:cardElevation="@dimen/z_app_bar"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            android:id="@+id/details_poster"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:transformPivotX="0px"
+            android:transformPivotY="0px">
 
             <ImageView
-                android:id="@+id/details_poster"
+                android:id="@+id/iv_details_poster"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:src="@drawable/ic_github"
+                android:src="@drawable/ic_github"
                 android:scaleType="centerCrop"
+                android:elevation="@dimen/z_app_bar"
                 android:contentDescription="@string/app_name"/>
 
         </androidx.cardview.widget.CardView>
 
-        <TextView
+        <!-- Needed to fill a rounding error gap in MotionLayout. See https://issuetracker.google.com/112728689 -->
+        <View
+            android:id="@+id/details_gap_filler"
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:background="@color/window_background"
+            app:layout_constraintBottom_toTopOf="@id/details_rv"
+            tools:ignore="PxUsage" />
+
+        <com.armandorochin.themoviedb.widget.TopLeftCutoutBackgroundView
+            android:id="@+id/details_appbar_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:backgroundColor="@color/window_background"
+            app:topLeftCutSize="@dimen/details_corner_cutout" />
+
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/details_title"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:ellipsize="end"
-            tools:text="@string/app_name"
-            android:layout_marginStart="@dimen/padding_normal"
-            android:layout_marginTop="@dimen/padding_normal"
-            android:textColor="?colorPrimary"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            app:layout_constraintStart_toEndOf="@id/card_details_poster"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/details_backdrop"/>
+            android:text="@string/app_name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-        <TextView
-            android:id="@+id/details_vote_average"
-            android:background="@drawable/circle_border"
-            android:layout_width="@dimen/rating_size"
-            android:layout_height="@dimen/rating_size"
-            android:layout_marginTop="@dimen/padding_normal"
-            android:textColor="?colorSecondary"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@id/details_title"
-            app:layout_constraintTop_toBottomOf="@id/details_title"
-            android:gravity="center"
-            tools:text="9.9"/>
-
-        <TextView
-            android:id="@+id/details_original_lang"
-            android:background="@drawable/rectangle_border"
-            android:layout_width="@dimen/rating_size"
-            android:layout_height="@dimen/rating_size"
-            android:textStyle="bold"
-            android:layout_marginStart="@dimen/padding_medium"
-            android:textAllCaps="true"
-            android:textColor="?colorSecondary"
-            app:layout_constraintTop_toTopOf="@id/details_vote_average"
-            app:layout_constraintStart_toEndOf="@id/details_vote_average"
-            app:layout_constraintTop_toBottomOf="@id/details_title"
-            android:gravity="center"
-            tools:text="ES"/>
-
-        <TextView
-            android:id="@+id/details_release_date_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_normal"
-            android:layout_marginStart="@dimen/padding_large"
-            android:textStyle="italic"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/card_details_poster"
-            android:text="@string/estreno"/>
-
-        <TextView
-            android:id="@+id/details_release_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textColor="?colorSecondary"
-            app:layout_constraintStart_toStartOf="@id/details_release_date_title"
-            app:layout_constraintTop_toBottomOf="@id/details_release_date_title"
-            tools:text="21-11-2022"/>
-
-
-
-        <TextView
-            android:id="@+id/summary_label"
-            style="@style/TextAppearance.AppCompat.Subhead"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_normal"
-            android:layout_marginStart="@dimen/padding_normal"
-            android:text="@string/summary"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/details_release_date"/>
-
-        <TextView
-            android:id="@+id/summary"
-            style="@style/ThemoviedbMargin.Body"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/details_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/padding_normal"
-            android:layout_marginEnd="@dimen/padding_normal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/summary_label"
-            tools:text="@string/lorem"/>
+            android:minHeight="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_back"
+            app:theme="@style/ToolbarTheme" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/cat_title_height"
-            app:layout_constraintStart_toStartOf="parent"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/details_rv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/window_background"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/summary"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/details_appbar_background">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="@dimen/padding_normal">
+
+                    <TextView
+                        android:id="@+id/details_vote_average"
+                        android:background="@drawable/circle_border"
+                        android:layout_width="@dimen/rating_size"
+                        android:layout_height="@dimen/rating_size"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:text="9.9"/>
+
+                    <TextView
+                        android:id="@+id/details_original_lang"
+                        android:background="@drawable/rectangle_border"
+                        android:layout_width="@dimen/rating_size"
+                        android:layout_height="@dimen/rating_size"
+                        android:textStyle="bold"
+                        android:layout_marginStart="@dimen/padding_medium"
+                        android:textAllCaps="true"
+                        android:gravity="center"
+                        android:text="ES"/>
+
+                </LinearLayout>
+
+
+                <TextView
+                    style="@style/ThemoviedbMargin.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_normal"
+                    android:textStyle="italic"
+                    android:text="@string/estreno" />
+
+                <TextView
+                    android:id="@+id/details_release_date"
+                    style="@style/ThemoviedbMargin.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="?colorAccent"
+                    android:text="@string/voteaverage_append" />
+
+                <TextView
+                    android:id="@+id/summary_label"
+                    style="@style/ThemoviedbMargin.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/summary" />
+
+                <TextView
+                    android:id="@+id/summary"
+                    style="@style/ThemoviedbMargin.Body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lorem" />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+
+</layout>

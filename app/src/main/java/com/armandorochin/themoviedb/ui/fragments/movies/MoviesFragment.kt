@@ -60,6 +60,7 @@ class MoviesFragment : Fragment(), MenuProvider {
     }
 
     private fun setupToolbar(params: Bundle?){
+        (activity as MainActivity).setSupportActionBar(binding.detailsToolbar)
         (activity as MainActivity).supportActionBar?.show()
         (activity as MainActivity).supportActionBar?.title = params?.getString(titleKey) ?: defaultTitle
         (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)

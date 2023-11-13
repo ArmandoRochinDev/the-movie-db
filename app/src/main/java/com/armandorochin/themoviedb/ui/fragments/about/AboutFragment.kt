@@ -41,13 +41,9 @@ class AboutFragment : Fragment(), MenuProvider {
         return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
-        (activity as MainActivity).supportActionBar?.show()
-    }
-
     private fun setupToolbar() {
-        (activity as MainActivity).supportActionBar?.hide()
+        (activity as MainActivity).setSupportActionBar(binding.detailsToolbar)
+        //(activity as MainActivity).supportActionBar?.hide()
         (activity as MainActivity).supportActionBar?.title = getString(R.string.about_title)
         (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         (activity as MainActivity).supportActionBar?.setDisplayShowHomeEnabled(true)

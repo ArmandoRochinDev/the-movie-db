@@ -1,164 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.MainActivity"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/details_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="?attr/actionBarSize"
+        android:minHeight="?attr/actionBarSize"
+        app:theme="@style/ToolbarTheme"
+        app:titleTextColor="@color/white"
+        android:elevation="@dimen/z_app_bar"/>
 
-        <View
-            android:id="@+id/details_backdrop"
+    <androidx.core.widget.NestedScrollView
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/about_width_background"
-            android:background="?colorPrimarySurface"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBaseline_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            android:layout_height="match_parent">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profile_picture"
-            android:layout_width="@dimen/profile_picture_size"
-            android:layout_height="@dimen/profile_picture_size"
-            android:layout_marginTop="@dimen/padding_large"
-            app:civ_border_width="@dimen/profile_picture_border"
-            app:civ_border_color="?colorSecondaryContainer"
-            tools:src="@drawable/ic_github"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:contentDescription="@string/app_name"/>
-
-        <TextView
-            android:id="@+id/dev_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/dev_name"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            style="@style/ThemoviedbMargin.Title"
-            app:layout_constraintTop_toBottomOf="@id/profile_picture"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-        <TextView
-            android:id="@+id/dev_tech"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/dev_job"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            style="@style/ThemoviedbMargin.Small"
-            app:layout_constraintTop_toBottomOf="@id/dev_name"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_profile"
-            android:layout_width="@dimen/socialnetwork_card_width"
-            android:layout_height="@dimen/socialnetwork_card_height"
-            app:cardCornerRadius="@dimen/card_radius"
-            app:cardElevation="@dimen/z_app_bar"
-            android:layout_marginTop="50dp"
-            android:layout_marginStart="@dimen/padding_medium"
-            android:layout_marginEnd="@dimen/padding_medium"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dev_tech">
-
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <View
+                android:id="@+id/details_backdrop"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_height="@dimen/about_width_background"
+                android:background="?colorPrimarySurface"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBaseline_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/ivGoogleplay"
-                    android:layout_width="0dp"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_picture"
+                android:layout_width="@dimen/profile_picture_size"
+                android:layout_height="@dimen/profile_picture_size"
+                android:layout_marginTop="@dimen/padding_large"
+                app:civ_border_width="@dimen/profile_picture_border"
+                app:civ_border_color="?colorAccent"
+                tools:src="@drawable/ic_github"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:contentDescription="@string/app_name"/>
+
+            <TextView
+                android:id="@+id/dev_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/dev_name"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                style="@style/ThemoviedbMargin.Title"
+                app:layout_constraintTop_toBottomOf="@id/profile_picture"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/dev_tech"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/dev_job"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                style="@style/ThemoviedbMargin.Small"
+                app:layout_constraintTop_toBottomOf="@id/dev_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_profile"
+                android:layout_width="@dimen/socialnetwork_card_width"
+                android:layout_height="@dimen/socialnetwork_card_height"
+                app:cardCornerRadius="@dimen/card_radius"
+                app:cardElevation="@dimen/z_app_bar"
+                android:layout_marginTop="50dp"
+                app:cardBackgroundColor="@color/colorPrimaryDark"
+                android:layout_marginStart="@dimen/padding_medium"
+                android:layout_marginEnd="@dimen/padding_medium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dev_tech">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:scaleType="fitCenter"
-                    android:padding="@dimen/padding_extra_large"
-                    android:src="@drawable/ic_googleplay"
-                    android:contentDescription="@string/app_name"
-                    app:tint="@color/md_theme_light_outline"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"/>
+                    android:orientation="horizontal">
 
-                <View
-                    android:layout_width="@dimen/separator_width"
-                    android:layout_height="@dimen/separator_height"
-                    android:background="@color/md_theme_light_outline"
-                    android:layout_gravity="center_vertical"/>
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivGoogleplay"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="fitCenter"
+                        android:padding="@dimen/padding_extra_large"
+                        android:src="@drawable/ic_googleplay"
+                        android:contentDescription="@string/app_name"
+                        app:tint="@color/white"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"/>
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/ivGithub"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:scaleType="fitCenter"
-                    android:padding="@dimen/padding_extra_large"
-                    android:src="@drawable/ic_github"
-                    android:contentDescription="@string/app_name"
-                    app:tint="@color/md_theme_light_outline"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"
-                    android:focusable="true" />
+                    <View
+                        android:layout_width="@dimen/separator_width"
+                        android:layout_height="@dimen/separator_height"
+                        android:background="@color/md_grey_600"
+                        android:layout_gravity="center_vertical"/>
 
-                <View
-                    android:layout_width="@dimen/separator_width"
-                    android:layout_height="@dimen/separator_height"
-                    android:background="@color/md_theme_light_outline"
-                    android:layout_gravity="center_vertical"/>
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivGithub"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="fitCenter"
+                        android:padding="@dimen/padding_extra_large"
+                        android:src="@drawable/ic_github"
+                        android:contentDescription="@string/app_name"
+                        app:tint="@color/white"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true" />
 
-                <ImageView
-                    android:id="@+id/ivCv"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_cv"
-                    android:contentDescription="@string/app_name"
-                    android:padding="@dimen/padding_extra_large"
-                    app:tint="@color/md_theme_light_outline"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"/>
+                    <View
+                        android:layout_width="@dimen/separator_width"
+                        android:layout_height="@dimen/separator_height"
+                        android:background="@color/md_grey_600"
+                        android:layout_gravity="center_vertical"/>
 
-            </androidx.appcompat.widget.LinearLayoutCompat>
+                    <ImageView
+                        android:id="@+id/ivCv"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_cv"
+                        android:contentDescription="@string/app_name"
+                        android:padding="@dimen/padding_extra_large"
+                        app:tint="@color/white"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"/>
 
-        </androidx.cardview.widget.CardView>
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <!-- App Info -->
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/cv_profile"
-            android:layout_margin="@dimen/padding_normal"
-            style="@style/ThemoviedbMargin.Title"
-            android:text="@string/app_name"/>
+            </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:id="@+id/subtitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/title"
-            style="@style/TextAppearance.AppCompat.Body2"
-            android:layout_marginLeft="@dimen/padding_normal"
-            android:layout_marginRight="@dimen/padding_normal"
-            android:text="@string/app_version"/>
+            <!-- App Info -->
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/cv_profile"
+                android:layout_margin="@dimen/padding_normal"
+                style="@style/ThemoviedbMargin.Title"
+                android:text="@string/app_name"/>
 
-        <TextView
-            android:id="@+id/tv_about_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/subtitle"
-            style="@style/TextAppearance.AppCompat.Body1"
-            android:layout_margin="@dimen/padding_normal"
-            android:text="@string/about" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/title"
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/white"
+                android:layout_marginLeft="@dimen/padding_normal"
+                android:layout_marginRight="@dimen/padding_normal"
+                android:text="@string/app_version"/>
 
-</androidx.core.widget.NestedScrollView>
+            <TextView
+                android:id="@+id/tv_about_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/subtitle"
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/white"
+                android:layout_margin="@dimen/padding_normal"
+                android:text="@string/about" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

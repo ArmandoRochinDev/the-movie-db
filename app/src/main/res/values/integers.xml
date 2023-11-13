@@ -2,6 +2,5 @@
 <resources>
 
     <integer name="max_lines">15</integer>
-    <integer name="anim_duration_long">400</integer>
 
 </resources>

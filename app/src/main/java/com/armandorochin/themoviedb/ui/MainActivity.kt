@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity(){
         setContentView(binding.root)
 
         setupSplashscreen(splashScreen)
-        setSupportActionBar(binding.layoutToolbar.toolbar)
 
         if (savedInstanceState == null){
             supportFragmentManager.commit {

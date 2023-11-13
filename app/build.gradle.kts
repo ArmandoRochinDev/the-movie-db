@@ -14,14 +14,15 @@ android {
         applicationId = "com.armandorochin.themoviedb"
         minSdk = 21
         targetSdk = 33
-        versionCode = 5
-        versionName = "1.0.0"
+        versionCode = 7
+        versionName = "1.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildFeatures {
         buildConfig = true
+        dataBinding = true
     }
 
     buildTypes {
