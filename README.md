@@ -1,5 +1,7 @@
 # the-movie-db
-the-movie-db es una aplicacion de ejemplo para mostrar Kotlin, MVVM, Clean Architecture, Dagger Hilt, Corutinas, Room database, Retrofit, databinding, livedata, material design, animaciones, espresso y test unitarios.
+the-movie-db es una aplicacion de ejemplo para mostrar Kotlin, MVVM, Clean Architecture, Dagger Hilt, Corutinas, Room database, Retrofit, databinding, livedata, material design, animaciones, motion layout, espresso y test unitarios.
+
+<a href="https://play.google.com/store/apps/details?id=com.armandorochin.themoviedb"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" height=70px /></a>
 
 
 ## TMDb API
