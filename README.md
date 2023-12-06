@@ -33,6 +33,15 @@ Test unitarios realizados en RemoteMediator y ViewModels. UI testint se realizo 
 * [MockK](https://mockk.io/ANDROID.html) mocking library for Kotlin
 * [Espresso](https://developer.android.com/training/testing/espresso) Espresso es un framework de testing open source lanzado por Google el cual provee una API que permite crear pruebas de interfaz de usuario para simular interacciones de usuarios en una aplicación Android.
 
+## Screenshots
+<p float="left">
+  <img src="https://firebasestorage.googleapis.com/v0/b/fir-showcase-app.appspot.com/o/screenshots%2Fthe-movie-db%2F01.png?alt=media&token=5d0c4804-0ed1-4b66-831c-bf84f63e12c5" width="250" />
+  <img src="https://firebasestorage.googleapis.com/v0/b/fir-showcase-app.appspot.com/o/screenshots%2Fthe-movie-db%2F02.png?alt=media&token=e9a6855b-f2b6-4f24-a383-dfec858fed69" width="250" />
+  <img src="https://firebasestorage.googleapis.com/v0/b/fir-showcase-app.appspot.com/o/screenshots%2Fthe-movie-db%2F03.png?alt=media&token=0f2a11aa-a094-427f-8785-893aae2ab589" width="250" />
+  <img src="https://firebasestorage.googleapis.com/v0/b/fir-showcase-app.appspot.com/o/screenshots%2Fthe-movie-db%2F04.png?alt=media&token=7a986304-0b8d-4987-a682-c28539d271a7" width="250" />
+  <img src="https://firebasestorage.googleapis.com/v0/b/fir-showcase-app.appspot.com/o/screenshots%2Fthe-movie-db%2F05.png?alt=media&token=a99c953e-4f55-4f40-be06-0c126b075a85" width="250" />
+</p>
+
 ## Licence
     MIT License
 
